@@ -1,0 +1,15 @@
+GET: /api/restaurants – Listet alle Restaurants.
+
+GET: /api/restaurants/{id} – Gibt ein einzelnes Restaurant anhand der ID zurück.
+
+POST /api/restaurants/{restaurantId}/bewertungen – Fügt einen Kommentar zu einem Restaurant hinzu.
+
+GET :/api/restaurants/{restaurantId}/bewertungen – Gibt alle Kommentare für ein Restaurant zurück.
+
+PUT:  /api/restaurants/{id} - Restaurant aktualisieren
+
+PUT:  /api/restaurants/{restaurantId}/bewertungen/{bewertungId} -Bewertung aktualisieren
+
+DELETE: /api/restaurants/{id} - Restaurant löschen
+
+DELETE: /api/restaurants/{restaurantId}/bewertungen/{bewertungId} -Bewertung löschen
