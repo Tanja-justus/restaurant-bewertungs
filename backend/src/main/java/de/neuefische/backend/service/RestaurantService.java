@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RestautantService {
-    @Autowired
-    private RestaurantRepository restaurantRepository;
+public class RestaurantService {
 
-    @Autowired
+    private RestaurantRepository restaurantRepository;
     private BewertungRepository bewertungRepository;
+    // constructor
+    public RestaurantService(RestaurantRepository restaurantRepository) {
+        this.restaurantRepository=restaurantRepository;
+    }
 
     // Alle Restaurants zurückgeben
     public List<Restaurant> findAllRestaurants() {
