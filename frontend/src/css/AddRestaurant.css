@@ -1,0 +1,105 @@
+/* Allgemeine Stile für das Formular */
+.add-restaurant-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    box-sizing: border-box;
+}
+
+/* Titel */
+ h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: lightslategray;
+    margin-bottom: 30px;
+}
+
+/* Formularfelder - Container für jedes Eingabefeld und Label */
+.add-restaurant-form div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Label für die Eingabefelder */
+.add-restaurant-form label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 8px; /* Abstand zwischen Label und Input */
+}
+
+/* Eingabefelder (Textfeld, Dropdown) */
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+/* Fokus-Effekte für Eingabefelder */
+input:focus, select:focus {
+    border-color: #3498db;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Button */
+button {
+    width: 50%;
+    padding: 12px;
+    background-color: #3498db;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Erfolgsmeldung */
+.success-message {
+    color: #28a745;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Fehlermeldung */
+.error-message {
+    color: #e74c3c;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Für kleinere Geräte (Mobilgeräte) */
+@media (max-width: 768px) {
+    .add-restaurant-form {
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .add-restaurant-form h1 {
+        font-size: 1.6rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+}

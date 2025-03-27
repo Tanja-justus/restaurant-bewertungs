@@ -12,7 +12,7 @@ export default function RestaurantGallery(props: Readonly<RestauratProps>) {
 
     return (
         <>
-            <div className="workout-gallery">
+            <div className="restaurants-list">
                 {props.restaurants.map((restaurant) => (
                     <RestaurantCard key={restaurant.id} restaurant={restaurant}/>
                 ))}

@@ -5,9 +5,7 @@ import de.neuefische.backend.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +25,10 @@ public class RestaurantController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);// 204 status wenn keine Restaurants gefunden
         }
         return new ResponseEntity<>(restaurants, HttpStatus.OK);// 200 status mit der Liste mit den Restaurants
+    }
+    @PostMapping("/restaurants")
+    @ResponseStatus(HttpStatus.CREATED) // 201 - Standard, when something was created
+    public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
+        return restaurantService.addRestaurant(restaurant.name(), restaurant.address(),restaurant.cuisine().name());
     }
 }
