@@ -1,5 +1,7 @@
 GET: /api/restaurants – Listet alle Restaurants.
 
+POST: /api/restaurants-einen neuen Restaurant anliegen
+
 GET: /api/restaurants/{id} – Gibt ein einzelnes Restaurant anhand der ID zurück.
 
 POST /api/restaurants/{restaurantId}/bewertungen – Fügt einen Kommentar zu einem Restaurant hinzu.

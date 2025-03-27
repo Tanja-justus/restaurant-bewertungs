@@ -4,6 +4,7 @@ import {Restaurant} from "./types/Restaurant.ts";
 import {Route, Routes, useNavigate} from "react-router-dom";
 import axios from "axios";
 import RestaurantGallery from "./components/RestaurantGallery.tsx";
+import Header from "./components/Header.tsx";
 
 function App() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([])
@@ -26,6 +27,7 @@ function App() {
     }
   return (
     <>
+        <Header/>
         <Routes>
                 <Route path="/restaurant" element={<RestaurantGallery restaurants={restaurants}/>}/>
         </Routes>
