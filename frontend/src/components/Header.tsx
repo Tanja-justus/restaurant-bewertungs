@@ -1,8 +1,7 @@
-import "../css/Header.css"
-import {NavLink, useNavigate} from "react-router";
+import "../css/Header.css";
+import { NavLink } from "react-router-dom";
 
 export default function Header() {
-
     return (
         <div className="header">
             <div className="logo-container">
@@ -11,10 +10,11 @@ export default function Header() {
                 </NavLink>
             </div>
             <nav className="nav-links">
-                <NavLink to="/" className="nav-link">Home</NavLink>
-                <NavLink to="/restaurant" className="nav-link">Restaurants</NavLink>
+                {/* Verwendet "end", um sicherzustellen, dass der Link nur aktiv ist, wenn der Pfad genau "/restaurant" ist */}
+                <NavLink to="/" end className="nav-link">Home</NavLink>
+                <NavLink to="/restaurant" end className="nav-link">Restaurants</NavLink>
                 <NavLink to="/restaurant/add" className="nav-link">Neue Restaurant</NavLink>
             </nav>
         </div>
-    )
+    );
 }

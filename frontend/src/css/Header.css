@@ -47,11 +47,11 @@
 }
 
 /* Markierung des aktiven Links */
-.nav-link.active {
+
+a.nav-link.active {
     background-color: #333; /* Dunkler Hintergrund für aktive Links */
     color: lightgoldenrodyellow; /* Goldene Schriftfarbe */
 }
-
 /* Optional: Für kleinere Bildschirme - responsiv */
 @media (max-width: 768px) {
     .header {

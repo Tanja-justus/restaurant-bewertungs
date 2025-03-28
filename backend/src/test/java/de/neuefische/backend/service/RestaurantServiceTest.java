@@ -1,6 +1,8 @@
 package de.neuefische.backend.service;
 
 
+import de.neuefische.backend.model.Cuisine;
+import de.neuefische.backend.model.IdService;
 import de.neuefische.backend.model.Restaurant;
 import de.neuefische.backend.repository.RestaurantRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -34,8 +37,8 @@ public class RestaurantServiceTest {
     @Test
     void findAllRestaurants() {
         //GIVEN
-        Restaurant r1 = new Restaurant("1", "TEST-Restaurant-1", "TEST-adresse-1");
-        Restaurant r2 = new Restaurant("2", "TEST-Restaurant-2", "TEST-adresse-2");
+        Restaurant r1 = new Restaurant("1", "TEST-Restaurant-1", "TEST-adresse-1", Cuisine.CHINESE);
+        Restaurant r2 = new Restaurant("2", "TEST-Restaurant-2", "TEST-adresse-2",Cuisine.ITALIAN);
         when(restaurantRepository.findAll()).thenReturn(List.of(r1, r2));
 
         //WHEN
@@ -45,5 +48,27 @@ public class RestaurantServiceTest {
         verify(restaurantRepository).findAll();
         List<Restaurant> expected = List.of(r1, r2);
         assertEquals(expected, actual);
+    }
+    @Test
+    void addRestaurant() {
+        // given
+        IdService idService = new IdService();
+        String id = idService.generateRandomID();
+        String name = "My Test Name";
+        String address= "My test Address";
+        Restaurant restaurantMocked = new Restaurant(id, name, address, Cuisine.ITALIAN);
+        when(restaurantRepository.save(restaurantMocked)).thenReturn(restaurantMocked);
+
+
+        // when
+     Restaurant restaurantInserted = restaurantService.addRestaurant(name,address,"ITALIAN");
+
+        // then
+        verify(restaurantRepository).save(restaurantInserted);
+        assertNotNull(restaurantInserted);
+        assertEquals(restaurantMocked.name(), restaurantInserted.name());
+        assertEquals(restaurantMocked.address(), restaurantInserted.address());
+        assertEquals(restaurantMocked.cuisine(), restaurantInserted.cuisine());
+        assertNotNull(restaurantInserted.id());
     }
 }

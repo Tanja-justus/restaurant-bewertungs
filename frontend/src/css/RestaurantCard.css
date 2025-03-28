@@ -1,0 +1,54 @@
+/* Container für die Restaurantkarten */
+.restaurants-list {
+    display: flex;
+    flex-wrap: wrap; /* Erlaubt Umbruch der Karten auf kleineren Bildschirmen */
+    gap: 20px; /* Abstand zwischen den Karten */
+    justify-content: center; /* Zentriert die Karten horizontal */
+    padding: 20px;
+}
+
+/* Styling für die Restaurantkarte */
+.restaurant-card {   max-width: 600px;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    box-sizing: border-box;
+    padding: 20px;
+    width: 280px; /* Breite der Karten */
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.restaurant-card h3 {
+    font-size: 1.5rem;
+    color: saddlebrown;
+    margin-bottom: 10px;
+}
+
+.restaurant-card p {
+    color: #777;
+    font-size: 1rem;
+}
+
+/* Responsives Design für kleinere Bildschirme */
+@media (max-width: 768px) {
+    .restaurant-card {
+        width: 45%; /* Karten nehmen 45% des Platzes ein, 2 Karten pro Reihe */
+        max-width: 350px; /* Maximale Breite der Karten */
+    }
+}
+
+@media (max-width: 480px) {
+    .restaurant-card {
+        width: 100%; /* Karten nehmen den gesamten Platz ein */
+        max-width: 350px; /* Maximale Breite */
+        padding: 15px; /* Weniger Padding auf sehr kleinen Geräten */
+    }
+}
