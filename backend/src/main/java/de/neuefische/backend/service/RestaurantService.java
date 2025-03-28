@@ -49,4 +49,13 @@ public class RestaurantService {
 
         return restaurant;
     }
+
+    public void deleteRestaurant(String id) {
+
+        if (!restaurantRepository.existsById(id)) {
+            throw new IllegalArgumentException("Restaurant with ID " + id + " was not found."
+            );
+        }
+        restaurantRepository.deleteById(id);
+    }
 }

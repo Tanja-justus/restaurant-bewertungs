@@ -31,4 +31,14 @@ public class RestaurantController {
     public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
         return restaurantService.addRestaurant(restaurant.name(), restaurant.address(),restaurant.cuisine().name());
     }
+
+    @DeleteMapping("/restaurants/{id}")
+    public ResponseEntity<Void> deleteRestaurant(@PathVariable String id) {
+        try {
+           restaurantService.deleteRestaurant(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

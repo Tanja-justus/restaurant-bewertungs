@@ -71,4 +71,29 @@ public class RestaurantServiceTest {
         assertEquals(restaurantMocked.cuisine(), restaurantInserted.cuisine());
         assertNotNull(restaurantInserted.id());
     }
+    @Test
+    void deleteRestaurantExists() {
+        // GIVEN
+        String restaurantId = "123";
+        when(restaurantRepository.existsById(restaurantId)).thenReturn(true);
+
+        // WHEN
+       restaurantService.deleteRestaurant(restaurantId);
+
+        // THEN
+        verify(restaurantRepository).deleteById(restaurantId);
+    }
+    @Test
+    void deleteRestaurantNotFound() {
+        // GIVEN
+        String restaurantId = "111";
+        when(restaurantRepository.existsById(restaurantId)).thenReturn(false);
+
+        // WHEN + THEN
+        try {
+           restaurantService.deleteRestaurant(restaurantId);
+        } catch (IllegalArgumentException e) {
+            verify(restaurantRepository, never()).deleteById(restaurantId);
+        }
+    }
 }

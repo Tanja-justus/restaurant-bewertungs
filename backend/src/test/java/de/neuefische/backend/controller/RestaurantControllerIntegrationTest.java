@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -68,4 +69,19 @@ public class RestaurantControllerIntegrationTest {
             Assertions.fail();
         }
     }
+
+
+
+    @DirtiesContext
+    @Test
+    void deleteRestaurant_shouldReturnNotFound_whenRestaurantDoesNotExist() throws Exception {
+
+        // Performing the DELETE request
+        mockMvc.perform(delete("/api/restaurants/{id}", "nonexistent-id"))
+                .andExpect(status().isNotFound());  // Expecting NotFound (404) status
+
+        // Verifying that the restaurant does not exist in the repository
+        assertThat(restaurantRepository.existsById("nonexistent-id")).isFalse();
+    }
 }
+

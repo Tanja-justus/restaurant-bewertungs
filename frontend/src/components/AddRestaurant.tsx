@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Restaurant } from "../types/Restaurant";
 import "../css/AddRestaurant.css";
+import {useNavigate} from "react-router-dom";
 type Props = {
     saveRestaurant(restaurant: Restaurant): void;
 };
@@ -10,7 +11,7 @@ export function AddRestaurant(props: Readonly<Props>) {
     const [address, setAddress] = useState('');
     const [cuisine, setCuisine] = useState('');
     const [message, setMessage] = useState('');
-
+    const navigate = useNavigate();
     // Funktion zum Absenden des Formulars
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
@@ -30,7 +31,7 @@ export function AddRestaurant(props: Readonly<Props>) {
 
             // Erfolgsmeldung setzen
             setMessage('Restaurant erfolgreich hinzugefügt!');
-
+            navigate("/restaurant");
             // Felder zurücksetzen
             setName('');
             setAddress('');
