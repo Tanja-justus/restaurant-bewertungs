@@ -83,5 +83,37 @@ public class RestaurantControllerIntegrationTest {
         // Verifying that the restaurant does not exist in the repository
         assertThat(restaurantRepository.existsById("nonexistent-id")).isFalse();
     }
+    @Test
+    @DirtiesContext
+    void findRestaurantById() throws Exception {
+        // GIVEN
+        Restaurant existingRestaurant = new Restaurant("1", "Test-Restaurant-1", "Test-Adresse-1", Cuisine.ITALIAN);
+        restaurantRepository.save(existingRestaurant);
+
+        // WHEN & THEN
+        mockMvc.perform(get("/api/restaurant/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                    {
+                        "id": "1",
+                        "name": "Test-Restaurant-1",
+                        "address": "Test-Adresse-1",
+                        "cuisine": "ITALIAN"
+                    }
+                """));
+    }
+
+
+    @Test
+    @DirtiesContext
+    void findRestaurantById_WhenRestaurantNotFound_thenStatus404() throws Exception {
+        //GIVEN
+
+        //WHEN
+        mockMvc.perform(get("/api/restaurant/1"))
+                //THEN
+                .andExpect(status().isNotFound());
+    }
+
 }
 

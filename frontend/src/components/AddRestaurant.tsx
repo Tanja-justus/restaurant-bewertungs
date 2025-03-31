@@ -6,7 +6,7 @@ type Props = {
     saveRestaurant(restaurant: Restaurant): void;
 };
 
-export function AddRestaurant(props: Readonly<Props>) {
+function AddRestaurant(props: Readonly<Props>) {
     const [name, setName] = useState('');
     const [address, setAddress] = useState('');
     const [cuisine, setCuisine] = useState('');

@@ -7,6 +7,7 @@ import Header from "./components/Header.tsx";
 import AddRestaurant from "./components/AddRestaurant.tsx";
 import Home from "./components/Home.tsx";
 import RestaurantPage from "./RestaurantPage.tsx";
+import RestaurantDetails from "./components/RestaurantDetails.tsx";
 
 function App() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([])
@@ -57,6 +58,13 @@ function App() {
                 alert('Fehler beim Löschen des Restaurants');
             });
     };
+
+    function handleRestaurant(restaurant: Restaurant) {
+        setRestaurant(restaurant);
+        navigate(`/restaurant/${restaurant.id}`);
+    }
+
+
     return (
         <>
             <Header/>
@@ -68,6 +76,7 @@ function App() {
                     path="/restaurant/add"
                     element={<AddRestaurant saveRestaurant={saveRestaurant}/>}
                 />
+                <Route path="/restaurant/:id" element={<RestaurantDetails handleRestaurant={handleRestaurant} restaurant={restaurant}/>}/>
             </Routes>
         </>
     )

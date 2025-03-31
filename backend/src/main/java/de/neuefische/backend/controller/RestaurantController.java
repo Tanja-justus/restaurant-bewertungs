@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api")
@@ -40,5 +41,16 @@ public class RestaurantController {
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
+    }
+    @GetMapping("/restaurant/{id}")
+    public ResponseEntity<Object> findWorkoutById(@PathVariable String id) {
+
+        try {
+            Restaurant restaurant = restaurantService.findRestaurantById(id);
+            return ResponseEntity.ok(restaurant);
+        } catch (NoSuchElementException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
     }
 }
