@@ -1,6 +1,4 @@
 package de.neuefische.backend.service;
-
-
 import de.neuefische.backend.model.Cuisine;
 import de.neuefische.backend.model.IdService;
 import de.neuefische.backend.model.Restaurant;
@@ -13,9 +11,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -38,7 +37,7 @@ public class RestaurantServiceTest {
     void findAllRestaurants() {
         //GIVEN
         Restaurant r1 = new Restaurant("1", "TEST-Restaurant-1", "TEST-adresse-1", Cuisine.CHINESE);
-        Restaurant r2 = new Restaurant("2", "TEST-Restaurant-2", "TEST-adresse-2",Cuisine.ITALIAN);
+        Restaurant r2 = new Restaurant("2", "TEST-Restaurant-2", "TEST-adresse-2", Cuisine.ITALIAN);
         when(restaurantRepository.findAll()).thenReturn(List.of(r1, r2));
 
         //WHEN
@@ -49,19 +48,20 @@ public class RestaurantServiceTest {
         List<Restaurant> expected = List.of(r1, r2);
         assertEquals(expected, actual);
     }
+
     @Test
     void addRestaurant() {
         // given
         IdService idService = new IdService();
         String id = idService.generateRandomID();
         String name = "My Test Name";
-        String address= "My test Address";
+        String address = "My test Address";
         Restaurant restaurantMocked = new Restaurant(id, name, address, Cuisine.ITALIAN);
         when(restaurantRepository.save(restaurantMocked)).thenReturn(restaurantMocked);
 
 
         // when
-     Restaurant restaurantInserted = restaurantService.addRestaurant(name,address,"ITALIAN");
+        Restaurant restaurantInserted = restaurantService.addRestaurant(name, address, "ITALIAN");
 
         // then
         verify(restaurantRepository).save(restaurantInserted);
@@ -71,4 +71,65 @@ public class RestaurantServiceTest {
         assertEquals(restaurantMocked.cuisine(), restaurantInserted.cuisine());
         assertNotNull(restaurantInserted.id());
     }
+
+    @Test
+    void deleteRestaurantExists() {
+        // GIVEN
+        String restaurantId = "123";
+        when(restaurantRepository.existsById(restaurantId)).thenReturn(true);
+
+        // WHEN
+        restaurantService.deleteRestaurant(restaurantId);
+
+        // THEN
+        verify(restaurantRepository).deleteById(restaurantId);
+    }
+
+    @Test
+    void deleteRestaurantNotFound() {
+        // GIVEN
+        String restaurantId = "111";
+        when(restaurantRepository.existsById(restaurantId)).thenReturn(false);
+
+        // WHEN + THEN
+        try {
+            restaurantService.deleteRestaurant(restaurantId);
+        } catch (IllegalArgumentException e) {
+            verify(restaurantRepository, never()).deleteById(restaurantId);
+        }
+    }
+
+    @Test
+    void findRestaurantById_RestaurantFound_ReturnsRestaurant() {
+        // GIVEN
+        String restaurantId = "123";
+        Restaurant restaurant = new Restaurant(restaurantId, "Test-Testrestaurant", "Test-Adresse", Cuisine.ITALIAN);
+
+        when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.of(restaurant));
+        // Restaurant found
+
+        // WHEN
+        Restaurant restaurantFound = restaurantService.findRestaurantById(restaurantId);
+
+        // THEN
+        assertNotNull(restaurantFound);
+        assertEquals(restaurantId, restaurantFound.id());
+        assertEquals("Test-Testrestaurant", restaurantFound.name());
+    }
+
+    @Test
+    void findRestaurantById_RestaurantNotFound_ThrowsNoSuchElementException() {
+        // GIVEN
+        String restaurantId = "111";
+        when(restaurantRepository.findById(restaurantId)).thenReturn(Optional.empty()); // Restaurant nicht gefunden
+
+        // WHEN + THEN
+        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+            restaurantService.findRestaurantById(restaurantId);
+        });
+
+        // Überprüfen, dass die Fehlermeldung exakt übereinstimmt
+        assertEquals("Restaurant with id: " + restaurantId + " not found!", exception.getMessage());
+    }
+
 }

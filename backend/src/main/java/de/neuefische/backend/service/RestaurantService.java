@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class RestaurantService {
 
-    private RestaurantRepository restaurantRepository;
-    private BewertungRepository bewertungRepository;
+    private final RestaurantRepository restaurantRepository;
+
 
     // constructor
     public RestaurantService(RestaurantRepository restaurantRepository) {
@@ -49,4 +50,19 @@ public class RestaurantService {
 
         return restaurant;
     }
+
+    public void deleteRestaurant(String id) {
+
+        if (!restaurantRepository.existsById(id)) {
+            throw new IllegalArgumentException("Restaurant with ID " + id + " was not found."
+            );
+        }
+        restaurantRepository.deleteById(id);
+    }
+
+    public  Restaurant findRestaurantById(String id) {
+        return restaurantRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Restaurant with id: " + id + " not found!"));
+    }
+
 }

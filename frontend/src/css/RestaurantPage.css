@@ -1,0 +1,28 @@
+/* Container für das Suchfeld */
+.search-container {
+    position: relative; /* Damit das Icon absolut positioniert werden kann */
+    width: 100%;
+    max-width: 400px; /* Optional: Maximale Breite für das Suchfeld */
+    margin-top: 20px;
+}
+
+/* Stil für das Such-Input-Feld */
+.search-input {
+    width: 100%;
+    padding: 10px 40px 10px 10px; /* Padding nach rechts für das Lupe-Icon */
+    border: 2px solid #ccc;
+    border-radius: 30px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Verhindert, dass das Padding die Gesamtbreite beeinflusst */
+}
+
+/* Stil für das Lupe-Icon */
+.search-icon {
+    position: absolute; /* Positioniere das Icon innerhalb des Containers */
+    right: 10px; /* Setze das Icon 10px von der rechten Seite ab */
+    top: 50%; /* Zentriere das Icon vertikal */
+    transform: translateY(-50%); /* Vertikale Zentrierung exakt in der Mitte */
+    font-size: 1.5rem; /* Größe des Icons */
+    color: #888; /* Farbgebung des Icons */
+    pointer-events: none; /* Verhindert Interaktionen mit dem Icon */
+}
