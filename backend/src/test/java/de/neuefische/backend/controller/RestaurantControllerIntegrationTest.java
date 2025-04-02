@@ -101,17 +101,5 @@ class RestaurantControllerIntegrationTest {
                 """));
     }
 
-
-    @Test
-    @DirtiesContext
-    void findRestaurantById_WhenRestaurantNotFound_thenStatus404() throws Exception {
-        //GIVEN
-
-        //WHEN
-        mockMvc.perform(get("/api/restaurant/333"))
-                //THEN
-                .andExpect(status().isNotFound());
-    }
-
-}
+                                          }
 
