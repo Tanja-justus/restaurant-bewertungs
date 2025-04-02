@@ -5,7 +5,6 @@ import de.neuefische.backend.service.RestaurantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -13,7 +12,11 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api")
 public class RestaurantController {
 
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
+
+    public RestaurantController(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
+    }
 
     // Alle Restaurants abrufen
     @GetMapping("/restaurants")
