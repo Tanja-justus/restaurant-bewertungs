@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -21,19 +22,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class BewertungControllerIntegrationTest {
+class BewertungControllerIntegrationTest {
     @Autowired
     MockMvc mockMvc;
     @Autowired
     BewertungRepository bewertungRepository;
     @Autowired
     private RestaurantRepository restaurantRepository;
+
     @BeforeEach
     void setUp() {
         // Clear the repository before each test to ensure a clean slate
         bewertungRepository.deleteAll();
         restaurantRepository.deleteAll();
     }
+
     @Test
     @DirtiesContext
     void deleteBewertung_shouldReturnNoContent_whenBewertungExists() throws Exception {
@@ -59,6 +62,7 @@ public class BewertungControllerIntegrationTest {
                 // Then: The status should be NotFound (404), indicating the Bewertung does not exist
                 .andExpect(status().isNotFound());
     }
+
     @Test
     void getBewertungenByRestaurantId_shouldReturnNoContent_whenNoBewertungenExist() throws Exception {
         // Given: No Bewertungen for a given restaurant ID
@@ -122,5 +126,6 @@ public class BewertungControllerIntegrationTest {
         assertThat(bewertung.kommentar()).isEqualTo("Amazing service!");
         assertThat(bewertung.restaurantId()).isEqualTo(restaurantId);
     }
+
 
 }
