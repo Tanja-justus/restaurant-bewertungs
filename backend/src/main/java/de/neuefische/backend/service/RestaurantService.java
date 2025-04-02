@@ -14,8 +14,8 @@ import java.util.NoSuchElementException;
 @Service
 public class RestaurantService {
 
-    private RestaurantRepository restaurantRepository;
-    private BewertungRepository bewertungRepository;
+    private final RestaurantRepository restaurantRepository;
+
 
     // constructor
     public RestaurantService(RestaurantRepository restaurantRepository) {

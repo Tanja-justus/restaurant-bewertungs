@@ -1,6 +1,4 @@
 package de.neuefische.backend.service;
-
-
 import de.neuefische.backend.model.Cuisine;
 import de.neuefische.backend.model.IdService;
 import de.neuefische.backend.model.Restaurant;
