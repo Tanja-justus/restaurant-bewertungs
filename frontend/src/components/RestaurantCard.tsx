@@ -28,7 +28,7 @@ export default function RestaurantCard(props: Readonly<RestaurantCardProps>) {
             <h3>{restaurant.name}</h3>
             <p>Küche: {restaurant.cuisine}</p>
             <p>{restaurant.address}</p>
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={handleDelete}><i className="fas fa-trash"></i></button>
         </div>
     );
 }

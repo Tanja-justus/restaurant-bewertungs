@@ -1,0 +1,159 @@
+/* Container für das Layout */
+.layout-container {
+    display: flex;
+    flex-direction: row; /* Nebeneinander anzeigen */
+    gap: 30px; /* Abstand zwischen den Spalten */
+    padding: 140px;
+    max-width: 1200px;
+    margin: 100px auto;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+}
+
+/* Restaurant-Galerie links */
+.restaurant-gallery {
+    flex: 1; /* Nimmt den restlichen Platz ein */
+    font-family: 'Poppins', sans-serif; /* Modernere Schriftart */
+    background-color: #ffffff;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #ffffff, #e0e0e0);
+    transition: transform 0.3s ease-in-out;
+}
+
+.restaurant-gallery:hover {
+    transform: translateY(-10px); /* Hover-Effekt */
+}
+
+/* Restaurant Header */
+.restaurant-gallery h1 {
+    font-size: 3rem;
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+.restaurant-gallery h1:hover {
+    color: #3498db; /* Hover-Farbe */
+}
+
+.restaurant-gallery p {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin: 5px 0;
+    text-align: left;
+    line-height: 1.5;
+}
+
+/* Kommentarbereich rechts */
+.comment-section {
+    flex: 1; /* Nimmt ebenfalls den restlichen Platz ein */
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 70%;
+}
+
+/* Kommentare in der Liste */
+.comments-list {
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.comment {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.3s ease;
+}
+
+.comment:hover {
+    transform: translateY(-10px); /* Hover-Effekt */
+}
+
+.comment button {
+    background-color: gray;
+    color: white;
+    padding: 12px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    align-self: flex-start;
+    margin-top: 15px;
+    width: auto;
+}
+
+.comment button:hover {
+    background-color: #c0392b; /* Dunklere Farbe bei Hover */
+    transform: scale(1.05); /* Vergrößert den Button beim Hover */
+}
+
+/* Neues Kommentar hinzufügen */
+.add-comment {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.add-comment textarea {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    resize: none;
+    min-height: 120px;
+    transition: border-color 0.3s ease;
+}
+
+.add-comment textarea:focus {
+    border-color: #3498db; /* Fokusfarbe */
+    outline: none;
+}
+
+.add-comment button {
+    width: auto;
+    background-color: #3498db;
+    color: white;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    align-self: flex-start;
+}
+
+.add-comment button:hover {
+    background-color: #2980b9; /* Dunklere Farbe bei Hover */
+    transform: scale(1.05); /* Vergrößert den Button beim Hover */
+}
+
+/* Responsiveness für kleinere Bildschirme */
+@media (max-width: 768px) {
+    .layout-container {
+        flex-direction: column; /* Stapeln auf kleineren Geräten */
+        gap: 20px;
+    }
+
+    .restaurant-gallery, .comment-section {
+        width: 100%; /* Vollbild auf kleinen Geräten */
+    }
+}
