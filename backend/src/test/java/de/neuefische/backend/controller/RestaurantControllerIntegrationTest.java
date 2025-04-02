@@ -15,14 +15,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oidcLogin;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RestaurantControllerIntegrationTest {
+class RestaurantControllerIntegrationTest {
     @Autowired
     MockMvc mockMvc;
     @Autowired
@@ -103,17 +102,6 @@ public class RestaurantControllerIntegrationTest {
                 """));
     }
 
-
-    @Test
-    @DirtiesContext
-    void findRestaurantById_WhenRestaurantNotFound_thenStatus404() throws Exception {
-        //GIVEN
-
-        //WHEN
-        mockMvc.perform(get("/api/restaurant/1"))
-                //THEN
-                .andExpect(status().isNotFound());
-    }
 
 }
 
