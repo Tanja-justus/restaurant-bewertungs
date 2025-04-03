@@ -53,5 +53,5 @@ public class BewertungController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    public static record BewertungRequest(String kommentar) {}
+
 }
