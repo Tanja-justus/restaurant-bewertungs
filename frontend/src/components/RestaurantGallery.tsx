@@ -1,11 +1,11 @@
 import {Restaurant} from "../types/Restaurant.ts";
 import RestaurantCard from "./RestaurantCard.tsx";
 
-type RestauratProps = {
+type RestaurantProps = {
     restaurants: Restaurant []
     onDelete: (id: string) => void;
 }
-export default function RestaurantGallery(props: Readonly<RestauratProps>) {
+export default function RestaurantGallery(props: Readonly<RestaurantProps>) {
 
     if (!Array.isArray(props.restaurants)) {
         return <div>Keine Restaurants verfügbar</div>;

@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api")
 public class RestaurantController {
 
-
+@Autowired
     private RestaurantService restaurantService;
 
     // Alle Restaurants abrufen
