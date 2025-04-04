@@ -101,6 +101,7 @@ class RestaurantControllerIntegrationTest {
                         """));
     }
 
+
     @Test
     @DirtiesContext
     void putRestaurant() throws Exception {
@@ -131,4 +132,7 @@ class RestaurantControllerIntegrationTest {
                         """));
     }
 }
+=======
+                                          }
+
 
