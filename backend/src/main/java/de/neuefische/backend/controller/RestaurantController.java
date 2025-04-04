@@ -12,11 +12,14 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api")
 public class RestaurantController {
 
+
+
     private final RestaurantService restaurantService;
 
     public RestaurantController(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
     }
+
 
     // Alle Restaurants abrufen
     @GetMapping("/restaurants")
@@ -53,5 +56,11 @@ public class RestaurantController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Restaurant with ID " + id + " not found.");
         }
 
+    }
+    @PutMapping("/restaurant/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Restaurant putRestaurant(@RequestBody Restaurant restaurant, @PathVariable String id)
+    {
+        return restaurantService.updateRestaurant(restaurant,id);
     }
 }

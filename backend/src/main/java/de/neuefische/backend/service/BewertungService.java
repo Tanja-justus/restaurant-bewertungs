@@ -4,7 +4,6 @@ import de.neuefische.backend.model.Bewertung;
 import de.neuefische.backend.model.IdService;
 import de.neuefische.backend.repository.BewertungRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 

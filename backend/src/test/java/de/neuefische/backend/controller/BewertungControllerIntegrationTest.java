@@ -22,7 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+
 class BewertungControllerIntegrationTest {
+
     @Autowired
     MockMvc mockMvc;
     @Autowired
@@ -126,6 +128,7 @@ class BewertungControllerIntegrationTest {
         assertThat(bewertung.kommentar()).isEqualTo("Amazing service!");
         assertThat(bewertung.restaurantId()).isEqualTo(restaurantId);
     }
+
     @Test
     @DirtiesContext
     void findRestaurantById_WhenRestaurantNotFound_thenStatus404() throws Exception {
