@@ -13,7 +13,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -70,7 +69,6 @@ class RestaurantControllerIntegrationTest {
     }
 
 
-
     @DirtiesContext
     @Test
     void deleteRestaurant_shouldReturnNotFound_whenRestaurantDoesNotExist() throws Exception {
@@ -82,6 +80,7 @@ class RestaurantControllerIntegrationTest {
         // Verifying that the restaurant does not exist in the repository
         assertThat(restaurantRepository.existsById("nonexistent-id")).isFalse();
     }
+
     @Test
     @DirtiesContext
     void findRestaurantById() throws Exception {
@@ -93,15 +92,43 @@ class RestaurantControllerIntegrationTest {
         mockMvc.perform(get("/api/restaurant/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
-                    {
-                        "id": "1",
-                        "name": "Test-Restaurant-1",
-                        "address": "Test-Adresse-1",
-                        "cuisine": "ITALIAN"
-                    }
-                """));
+                            {
+                                "id": "1",
+                                "name": "Test-Restaurant-1",
+                                "address": "Test-Adresse-1",
+                                "cuisine": "ITALIAN"
+                            }
+                        """));
     }
 
+    @Test
+    @DirtiesContext
+    void putRestaurant() throws Exception {
 
+        //Given
+        Restaurant existingRestaurant = new Restaurant("1", "test-name", "test-adresse", Cuisine.CHINESE);
+        restaurantRepository.save(existingRestaurant);
+
+        //When
+        mockMvc.perform(put("/api/restaurant/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                     {
+                                    "name": "test-name",
+                                    "address": "test-adresse",
+                                    "cuisine": "CHINESE"
+                                }
+                                """))
+                //THEN
+                .andExpect(status().isAccepted())
+                .andExpect(content().json("""
+                        {
+                            "id": "1",
+                           "name": "test-name",
+                           "address": "test-adresse",
+                           "cuisine": "CHINESE"
+                        }
+                        """));
+    }
 }
 

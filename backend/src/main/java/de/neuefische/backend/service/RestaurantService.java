@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -60,9 +61,30 @@ public class RestaurantService {
         restaurantRepository.deleteById(id);
     }
 
-    public  Restaurant findRestaurantById(String id) {
+    public Restaurant findRestaurantById(String id) {
         return restaurantRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Restaurant with id: " + id + " not found!"));
     }
 
+    public Restaurant updateRestaurant(Restaurant restaurant, String id) {
+        // 1. Restaurant mit der angegebenen ID aus der Datenbank abrufen
+        Optional<Restaurant> existingRestaurant = restaurantRepository.findById(id);
+
+        if (existingRestaurant.isPresent()) {
+            // 2. Das Restaurant wurde gefunden. Erstelle ein neues Restaurant mit den neuen Werten.
+            // 3. Erstelle ein neues Restaurant-Objekt mit den aktualisierten Werten
+            Restaurant updatedRestaurant = new Restaurant(
+                    id, // ID bleibt gleich
+                    restaurant.name(), // Der Name wird aktualisiert
+                    restaurant.address(), // Die Adresse wird aktualisiert
+                    restaurant.cuisine() // Die Küche wird aktualisiert
+            );
+
+            // 4. Das aktualisierte Restaurant speichern und zurückgeben
+            return restaurantRepository.save(updatedRestaurant);
+        } else {
+            // 5. Wenn das Restaurant nicht gefunden wird, eine Ausnahme werfen
+            throw new NoSuchElementException("Restaurant mit der ID " + id + " nicht gefunden");
+        }
+    }
 }

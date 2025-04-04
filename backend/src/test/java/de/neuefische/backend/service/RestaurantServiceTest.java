@@ -5,6 +5,7 @@ import de.neuefische.backend.model.Restaurant;
 import de.neuefische.backend.repository.RestaurantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -131,5 +132,39 @@ public class RestaurantServiceTest {
         // Überprüfen, dass die Fehlermeldung exakt übereinstimmt
         assertEquals("Restaurant with id: " + restaurantId + " not found!", exception.getMessage());
     }
+
+    @Test
+    void updateRestaurant() {
+        // GIVEN
+        String id = "123";
+        // Ursprüngliches Restaurant (vor der Aktualisierung)
+        Restaurant restaurantToUpdate = new Restaurant("123", "test-name", "test-adresse", Cuisine.ITALIAN);
+
+        // Das aktualisierte Restaurant
+        Restaurant updatedRestaurant = new Restaurant("123", "test-name", "test-adresse-update", Cuisine.ITALIAN);
+
+        // Mocking repository findById method to return the restaurant to update
+        when(restaurantRepository.findById(id)).thenReturn(Optional.of(restaurantToUpdate));
+
+        // Mocking repository save method to return the updated restaurant
+        when(restaurantRepository.save(any(Restaurant.class))).thenReturn(updatedRestaurant);
+
+        // WHEN
+        Restaurant actual = restaurantService.updateRestaurant(restaurantToUpdate, id);
+
+        // THEN
+        // Verifiziere, dass save() mit dem richtigen Restaurant aufgerufen wurde
+        ArgumentCaptor<Restaurant> captor = ArgumentCaptor.forClass(Restaurant.class);
+        verify(restaurantRepository).save(captor.capture());
+
+        // Verifiziere, dass das Restaurant korrekt aktualisiert wurde (jetzt mit der neuen Adresse)
+        assertEquals("test-name", captor.getValue().name()); // Name bleibt gleich
+        assertEquals("test-adresse", captor.getValue().address()); // Adresse sollte jetzt aktualisiert sein
+        assertEquals(Cuisine.ITALIAN, captor.getValue().cuisine()); // Cuisine bleibt gleich
+
+        // Überprüfe das tatsächliche Ergebnis
+        assertEquals(updatedRestaurant, actual); // Teste, ob das zurückgegebene Restaurant das erwartete ist
+    }
+
 
 }
