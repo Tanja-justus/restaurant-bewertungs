@@ -1,14 +1,11 @@
 import {Link} from "react-router-dom";
-import "../css/Home.css"; // Dein CSS-Import
+import "../css/Home.css";
 
 export default function Home() {
     return (
         <div className="home-container">
-            <header className="home-header">
                 <h1>Willkommen bei der Restaurant-Bewertung</h1>
                 <p>Hier können Sie Restaurants hinzufügen, bewerten und entdecken!</p>
-            </header>
-
             <section className="home-content">
                 <div className="home-card">
                     <h2>Restaurants ansehen</h2>

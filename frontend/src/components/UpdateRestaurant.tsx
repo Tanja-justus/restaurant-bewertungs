@@ -1,104 +1,97 @@
-import axios from "axios";
-import {ChangeEvent, FormEvent, useEffect, useState} from "react";
-import {useNavigate} from "react-router";
-import {Restaurant} from "../types/Restaurant.ts";
+import {useState, useEffect} from 'react';
+import {Restaurant} from '../types/Restaurant';
+import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
-type Props = {
-    restaurant: Restaurant | undefined;
+type UpdateRestaurantProps = {
+    restaurant: Restaurant;  // Das Restaurant ist nun immer verfügbar und nicht optional
     handleUpdatedRestaurant: (restaurant: Restaurant) => void;
-}
+};
 
-export default function UpdateRestaurant(props: Props) {
-
-    // Wenn kein Restaurant in den Props vorhanden ist, laden wir es per API anhand der ID
-    const [givenRestaurant, setGivenRestaurant] = useState<Restaurant>(
-        props.restaurant ? props.restaurant : { id: "", name: "", address: "", cuisine: "" }
-    );
-
+export default function UpdateRestaurant({restaurant, handleUpdatedRestaurant}: UpdateRestaurantProps) {
+    const [updatedRestaurant, setUpdatedRestaurant] = useState<Restaurant>(restaurant); // Zustand direkt mit den übergebenen Restaurant-Daten initialisieren
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Wenn `restaurant` nicht durch Props übergeben wurde, holen wir es mit einer API-Anfrage
-        if (!props.restaurant) {
-            const restaurantId = window.location.pathname.split('/').pop(); // Extrahiere die ID aus der URL
-            axios.get(`/api/restaurant/${restaurantId}`)
-                .then(response => {
-                    setGivenRestaurant(response.data);  // Restaurant-Daten setzen
-                })
-                .catch(error => console.error("Fehler beim Laden des Restaurants", error));
+        if (restaurant) {
+            setUpdatedRestaurant(restaurant);  // Wenn das Restaurant neu übergeben wird, aktualisiere den Zustand
         }
-    }, [props.restaurant]);
+    }, [restaurant]);
 
-    // Verhindern der Standard-Formularübermittlung
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        saveRestaurant();  // Restaurant speichern
-        navigate(`/restaurant/${givenRestaurant.id}`);  // Zur Detail-Seite des Restaurants weiterleiten
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const {name, value} = e.target;
+        setUpdatedRestaurant((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
     };
 
-    // Funktion zum Speichern des Restaurants
-    function saveRestaurant() {
-        if (!givenRestaurant.id) {
-            console.error("Fehler: Die Restaurant-ID fehlt!");
-            return;
-        }
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
 
-        console.log("ID von gespeichertem Restaurant: " + givenRestaurant.id);
-        axios
-            .put(`/api/restaurant/${givenRestaurant.id}`, givenRestaurant)
+        // SaveRestaurant wird jetzt direkt hier aufgerufen
+        axios.put(`/api/restaurant/${updatedRestaurant.id}`, updatedRestaurant)
             .then(() => {
-                props.handleUpdatedRestaurant(givenRestaurant);  // Parent-Komponente über das Update informieren
+                handleUpdatedRestaurant(updatedRestaurant);  // Callback zum Aktualisieren des übergeordneten Zustands
+                navigate(`/restaurant`);// Navigiere zur  Restaurants
+                window.location.reload()
             })
             .catch((error) => {
-                console.error("Fehler beim Speichern des Restaurants: ", error);
+                console.error('Fehler beim Aktualisieren des Restaurants', error);
             });
-    }
+    };
 
-    // Funktion zur Aktualisierung des Restaurant-States
-    function updateGivenRestaurant(event: ChangeEvent<HTMLInputElement>) {
-        const key = event.target.name;
-        const value = event.target.value;
-        setGivenRestaurant({ ...givenRestaurant, [key]: value });
-    }
-
-    // Wenn Restaurant-Daten nicht verfügbar sind, zeigen wir eine Lade-Nachricht
-    if (!givenRestaurant) {
-        return <p>Lade Restaurant-Daten...</p>;
+    if (!updatedRestaurant) {
+        return <div>Lädt...</div>;
     }
 
     return (
-        <div className="restaurant-update">
-            <h2>Update your restaurant</h2>
-            <form onSubmit={handleSubmit}>
+        <div>
+            <h1>Restaurant Aktualisieren</h1>
+            <form onSubmit={handleSubmit} className="add-restaurant-form">
                 <div>
-                    <label>Name des Restaurants:
-                        <input
-                            name="name"
-                            type="text"
-                            value={givenRestaurant.name}
-                            onChange={event => updateGivenRestaurant(event)}
-                        />
-                    </label>
-                    <label>Adresse:
-                        <input
-                            name="address"
-                            type="text"
-                            value={givenRestaurant.address}
-                            onChange={event => updateGivenRestaurant(event)}
-                        />
-                    </label>
-                    <label>Küche:
-                        <input
-                            name="cuisine"
-                            type="text"
-                            value={givenRestaurant.cuisine}
-                            onChange={event => updateGivenRestaurant(event)}
-                        />
-                    </label>
+                    <label htmlFor="name">Restaurant Name:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={updatedRestaurant.name}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
+
                 <div>
-                    <button type="submit">Update</button>
+                    <label htmlFor="address">Adresse:</label>
+                    <input
+                        type="text"
+                        id="address"
+                        name="address"
+                        value={updatedRestaurant.address}
+                        onChange={handleChange}
+                        required
+                    />
                 </div>
+
+                <div>
+                    <label htmlFor="cuisine">Küche:</label>
+                    <select
+                        id="cuisine"
+                        name="cuisine"
+                        value={updatedRestaurant.cuisine}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">Wählen Sie eine Küche</option>
+                        <option value="ITALIAN">Italienisch</option>
+                        <option value="CHINESE">Chinesisch</option>
+                        <option value="INDIAN">Indisch</option>
+                        <option value="MEXICAN">Mexikanisch</option>
+                        <option value="FRENCH">Französisch</option>
+                    </select>
+                </div>
+
+                <button type="submit">Speichern</button>
             </form>
         </div>
     );
