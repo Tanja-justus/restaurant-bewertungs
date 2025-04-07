@@ -38,11 +38,12 @@ export default function RestaurantCard(props: Readonly<RestaurantCardProps>) {
 
     return (
         <div className="restaurant-card">
-            <h3 onClick={handleClick}>{restaurant.name}</h3>
+            <h3>{restaurant.name}</h3>
             <p>Küche: {restaurant.cuisine}</p>
             <p>{restaurant.address}</p>
             <button onClick={handleDelete}><i className="fas fa-trash"></i></button>
             <button onClick={handleUpdate}><i className="fas fa-edit"></i></button>
+            <button onClick={handleClick}>💬  {/* Kommentar-Emoji als Icon */}</button>
         </div>
     );
 }
