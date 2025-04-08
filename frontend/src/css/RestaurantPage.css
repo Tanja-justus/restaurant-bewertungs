@@ -1,28 +1,157 @@
-/* Container für das Suchfeld */
+/* Container für die gesamte Seite */
+.restaurant-page {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f7f6;
+    min-height: 100vh;
+}
+
+/* Suchbereich */
 .search-container {
-    position: relative; /* Damit das Icon absolut positioniert werden kann */
-    width: 100%;
-    max-width: 400px; /* Optional: Maximale Breite für das Suchfeld */
-    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
 }
 
-/* Stil für das Such-Input-Feld */
 .search-input {
-    width: 100%;
-    padding: 10px 40px 10px 10px; /* Padding nach rechts für das Lupe-Icon */
-    border: 2px solid #ccc;
-    border-radius: 30px;
+    width: 60%;
+    padding: 12px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
     font-size: 1rem;
-    box-sizing: border-box; /* Verhindert, dass das Padding die Gesamtbreite beeinflusst */
+    outline: none;
+    transition: border 0.3s ease;
 }
 
-/* Stil für das Lupe-Icon */
-.search-icon {
-    position: absolute; /* Positioniere das Icon innerhalb des Containers */
-    right: 10px; /* Setze das Icon 10px von der rechten Seite ab */
-    top: 50%; /* Zentriere das Icon vertikal */
-    transform: translateY(-50%); /* Vertikale Zentrierung exakt in der Mitte */
-    font-size: 1.5rem; /* Größe des Icons */
-    color: #888; /* Farbgebung des Icons */
-    pointer-events: none; /* Verhindert Interaktionen mit dem Icon */
+.search-input:focus {
+    border: 1px solid #3498db;
 }
+
+/* Icon der Suchleiste */
+.search-icon {
+    position: absolute;
+    right: 15px;
+    color: #888;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Text, wenn keine Restaurants gefunden werden */
+p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+}
+
+/* Restaurant-Galerie */
+.restaurant-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Restaurant Card */
+.restaurant-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px;
+}
+
+.restaurant-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.restaurant-card h3 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.restaurant-card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Buttons Container */
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+/* Buttons */
+button {
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* Delete Button */
+.delete-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c0392b;
+}
+
+/* Edit Button */
+.edit-btn {
+    background-color: #3498db;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #2980b9;
+}
+
+/* Comment Button */
+.comment-btn {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.comment-btn:hover {
+    background-color: #27ae60;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .restaurant-card {
+        width: 100%;
+        max-width: 90%;
+        margin: 10px auto;
+    }
+
+    .button-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+

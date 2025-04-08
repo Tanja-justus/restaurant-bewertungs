@@ -1,75 +1,255 @@
-/* Container des Headers */
+/* ---------- Header ---------- */
+
 .header {
-    background-color: burlywood;
-    color: white;
     display: flex;
-    justify-content: flex-start; /* Elemente links ausrichten */
-    align-items: center; /* Vertikale Zentrierung */
-    width: 100%;
-    position: fixed;  /* Fixiert den Header oben auf der Seite */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
     top: 0;
-    left: 0;/* Hintergrundfarbe für den Header */ /* Der Header nimmt die gesamte Breite ein */
     z-index: 1000;
 }
 
-/* Logo links und größer */
+
 .logo-container {
-    margin-right: 10px; /* Abstand zwischen Logo und Titel */
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
+/* ---------- Logo Styles ---------- */
 .logo {
-    width: 150px; /* Größe des Logos anpassen (kann auf Bedarf geändert werden) */
-    height: auto; /* Stellt sicher, dass das Logo proportional bleibt */
+    height: 80px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    border-radius: 10px;
+    object-fit: contain;
+    position: relative; /* Wird benötigt, um den "glitzernden" Effekt über dem Logo zu positionieren */
+    z-index: 1; /* Damit das Logo über dem Sternen-Effekt liegt */
 }
 
-/* Navigationsleiste */
+/* Glitzernder Effekt als "Sternen-Effekt" */
+.logo::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 10%, rgba(255, 255, 255, 0) 50%);
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1; /* Damit der Glitzer-Effekt hinter dem Logo bleibt */
+    border-radius: 50%;
+    animation: sparkle 1.5s infinite;
+}
+
+/* Animation für den Glitzereffekt */
+@keyframes sparkle {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1);
+    }
+}
+
+/* Logo Hover-Effekt */
+.logo:hover {
+    transform: scale(1.1); /* Vergrößert das Logo bei Hover */
+    filter: brightness(1.2); /* Erhöht die Helligkeit des Logos */
+}
+
+/* Hintergrund für das Logo bei Hover */
+.logo-container:hover .logo {
+    background-color: #3498db; /* Hintergrundfarbe */
+    padding: 5px; /* Abstand zum Rand */
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.5); /* Schöner Schein-Effekt */
+}
+
+/* Responsiveness für das Logo */
+@media (max-width: 768px) {
+    .logo {
+        height: 60px; /* Kleinere Logo-Größe auf mobilen Geräten */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        height: 50px; /* Noch kleinere Größe für sehr kleine Bildschirme */
+    }
+}
+
 .nav-links {
     display: flex;
-    justify-content: center;
-    margin-top: 100px;
+    gap: 1.5rem;
 }
 
-/* Links in der Navigation */
 .nav-link {
+    color: #333;
     text-decoration: none;
-    color: white;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    margin: 0 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
 }
 
-/* Hover-Effekt für Links */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #3498db;
+    transition: width 0.3s ease;
+}
+
 .nav-link:hover {
-    background-color: lightslategray;
-    color: #242424;
+    color: #3498db;
 }
 
-/* Markierung des aktiven Links */
-
-a.nav-link.active {
-    background-color: #333; /* Dunkler Hintergrund für aktive Links */
-    color: lightgoldenrodyellow; /* Goldene Schriftfarbe */
+.nav-link:hover::after {
+    width: 100%;
 }
-/* Optional: Für kleinere Bildschirme - responsiv */
+
+.nav-link.active {
+    color: #3498db;
+    font-weight: 600;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
+    .menu-toggle {
+        display: block;
     }
 
     .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
+        background-color: #fff;
+        padding: 1rem 2rem;
+        gap: 1rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: none;
     }
 
-    .nav-link {
-        margin: 5px 0;
+    .nav-links.open {
+        display: flex;
     }
 
-    .logo {
-        width: 100px; /* Logo auf kleineren Bildschirmen verkleinern */
+    .logo-container {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
+
+/* ---------- Footer ---------- */
+
+.footer {
+    background-color: #222; /* Dunkelgrauer Hintergrund */
+    color: #fff; /* Weiße Schriftfarbe */
+    padding: 3rem 0; /* Innenabstand oben und unten */
+    font-size: 1rem; /* Standard Schriftgröße */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3); /* Oberer Schatten für den Footer */
+}
+
+/* Footer-Inhalt - Setzt ein Grid-Layout */
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Spaltenbreiten passen sich an */
+    gap: 2rem;
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+}
+
+/* Logo Bereich */
+.footer-logo img {
+    height: 40px; /* Logo-Größe */
+    margin-bottom: 1rem;
+}
+
+.footer-logo p {
+    color: #bbb; /* Helle Schriftfarbe für das Logo */
+    font-size: 0.95rem; /* Schriftgröße für das Logo */
+}
+
+/* Footer Links */
+.footer-links a,
+.footer-contact p {
+    color: #ccc; /* Helle Farbe für Links und Text */
+    text-decoration: none; /* Keine Unterstreichung */
+    display: block; /* Stellt Links untereinander dar */
+    margin: 0.25rem 0; /* Abstand zwischen Links */
+    transition: color 0.3s ease; /* Übergangseffekt bei Hover */
+}
+
+/* Hover-Effekt für Links */
+.footer-links a:hover {
+    color: #fff; /* Links werden bei Hover weiß */
+}
+
+/* Footer-Überschrift */
+.footer-contact h4,
+.footer-links h4,
+.footer-social h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #fff; /* Weiße Farbe für Überschriften */
+}
+
+/* Social Media Icons */
+.footer-social .social-icons a {
+    margin-right: 1rem; /* Abstand zwischen den Icons */
+    color: #ccc; /* Helle Farbe für Icons */
+    font-size: 1.5rem; /* Größe der Icons */
+    transition: color 0.3s ease; /* Übergangseffekt für Icons */
+}
+
+/* Hover-Effekt für Icons */
+.footer-social .social-icons a:hover {
+    color: #fff; /* Icons werden bei Hover weiß */
+}
+
+/* Footer Bottom Bereich */
+.footer-bottom {
+    text-align: center; /* Text wird zentriert */
+    border-top: 1px solid #444; /* Dünne Trennlinie oben */
+    padding-top: 1rem; /* Abstand oben */
+    color: #aaa; /* Helle Textfarbe */
+}
+
+/* Responsiver Footer */
+@media (max-width: 600px) {
+    .footer-content {
+        grid-template-columns: 1fr; /* Eine Spalte auf mobilen Geräten */
+        text-align: center; /* Text zentrieren */
+    }
+
+    .footer-social .social-icons {
+        justify-content: center; /* Zentrierung der Icons */
+    }
+
+    .footer-social .social-icons a {
+        font-size: 1.2rem; /* Kleinere Icons auf mobilen Geräten */
+    }
+
+    .footer {
+        padding: 2rem 1rem; /* Weniger Innenabstand auf mobilen Geräten */
+        font-size: 0.85rem; /* Kleinere Schriftgröße */
+    }
+
+    .footer-logo img {
+        height: 35px; /* Kleinere Logo-Größe auf mobilen Geräten */
+    }
+}
+

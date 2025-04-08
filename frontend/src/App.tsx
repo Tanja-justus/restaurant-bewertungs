@@ -9,6 +9,7 @@ import Home from "./components/Home.tsx";
 import RestaurantPage from "./RestaurantPage.tsx";
 import RestaurantDetails from "./components/RestaurantDetails.tsx";
 import UpdateRestaurant from "./components/UpdateRestaurant.tsx";
+import Footer from "./components/Footer.tsx";
 function App() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [restaurant, setRestaurant] = useState<Restaurant | undefined>(undefined); // Stelle sicher, dass es "undefined" sein kann.
@@ -89,6 +90,7 @@ function App() {
                 <Route path="/restaurant/:id/update"
                        element={<UpdateRestaurant restaurant={restaurant} handleUpdatedRestaurant={handleUpdatedRestaurant} />}/>
             </Routes>
+            <Footer/>
         </>
     );
 }
