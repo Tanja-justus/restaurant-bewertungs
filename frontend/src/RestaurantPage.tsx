@@ -5,6 +5,7 @@ import "./css/RestaurantPage.css";
 type Props = {
     restaurants: Restaurant[];
     onDelete: (id: string) => void;
+    handleRestaurant: (restaurant: Restaurant) => void;
 }
 
 export default function RestaurantPage(props: Props) {
@@ -32,7 +33,7 @@ export default function RestaurantPage(props: Props) {
             </div>
 
             {filteredRestaurants.length > 0
-                ? <RestaurantGallery restaurants={filteredRestaurants} onDelete={props.onDelete}  />
+                ? <RestaurantGallery restaurants={filteredRestaurants} onDelete={props.onDelete}  handleRestaurant={props.handleRestaurant}  />
                 : <p>Keine Restaurants gefunden</p>
             }
         </div>

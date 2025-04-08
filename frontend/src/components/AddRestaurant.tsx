@@ -87,7 +87,7 @@ function AddRestaurant(props: Readonly<Props>) {
 
                 <button type="submit">Speichern</button>
 
-                {message && <p>{message}</p>} {/* Zeige die Nachricht */}
+                {message && <p>{message}</p>}
             </form>
         </div>
     );
