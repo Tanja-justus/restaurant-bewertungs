@@ -2,11 +2,9 @@ package de.neuefische.backend.controller;
 
 import de.neuefische.backend.model.Restaurant;
 import de.neuefische.backend.service.RestaurantService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -14,8 +12,15 @@ import java.util.NoSuchElementException;
 @RequestMapping("/api")
 public class RestaurantController {
 
-@Autowired
-    private RestaurantService restaurantService;
+
+
+
+    private final RestaurantService restaurantService;
+
+    public RestaurantController(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
+    }
+
 
     // Alle Restaurants abrufen
     @GetMapping("/restaurants")
@@ -43,13 +48,13 @@ public class RestaurantController {
         }
     }
     @GetMapping("/restaurant/{id}")
-    public ResponseEntity<Object> findWorkoutById(@PathVariable String id) {
+    public ResponseEntity<Object> findRestaurantById(@PathVariable String id) {
 
         try {
             Restaurant restaurant = restaurantService.findRestaurantById(id);
             return ResponseEntity.ok(restaurant);
         } catch (NoSuchElementException ex) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Restaurant with ID " + id + " not found.");
         }
 
     }

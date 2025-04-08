@@ -22,7 +22,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
- class BewertungControllerIntegrationTest {
+
+class BewertungControllerIntegrationTest {
+
     @Autowired
     MockMvc mockMvc;
     @Autowired
@@ -137,5 +139,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 //THEN
                 .andExpect(status().isNotFound());
     }
+
 
 }
