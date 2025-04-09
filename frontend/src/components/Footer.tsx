@@ -4,16 +4,12 @@
     return (
         <footer className="footer">
             <div className="footer-content">
-                <div className="footer-logo">
-                    <img src="logo.png" alt="Restaurant Bewertung Logo" />
-                    <p>&copy; 2025 Restaurant Bewertung. Alle Rechte vorbehalten.</p>
-                </div>
+
                 <div className="footer-links">
                     <h4>Links</h4>
+                    <a href="/Home">Home</a>
                     <a href="/restaurant">Restaurants ansehen</a>
                     <a href="/restaurant/add">Restaurant hinzufügen</a>
-                    <a href="/about">Über uns</a>
-                    <a href="/contact">Kontakt</a>
                 </div>
                 <div className="footer-contact">
                     <h4>Kontakt</h4>

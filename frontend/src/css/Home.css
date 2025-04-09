@@ -1,113 +1,150 @@
-/* Allgemeine Container-Styles */
+/* Grundlegendes Layout */
 .home-container {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-    height: 70vh;
-    padding: 10px;
+    background: linear-gradient(135deg, rgba(119, 136, 153, 0.8), rgba(222, 184, 135, 0.8)); /* Verlauf von Lichtgrau zu Burlywood mit Transparenz */
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 3rem;
     text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 15px; /* Abgerundete Ecken für ein elegantes Aussehen */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sanfter Schatten für Tiefe */
+    transition: all 0.3s ease; /* Sanfte Übergänge */
 }
 
-/* Header für die Home-Seite */
-.home-header {
-    margin-bottom: 15px; /* Weniger Abstand nach unten */
-}
-
-.home-header h1 {
-    font-size: 2.5rem;
+/* Überschrift */
+.home-container h1 {
+    font-size: 3rem;
     color: #333;
-    font-weight: bold;
-    margin-bottom: 10px; /* Weniger Abstand zum nachfolgenden Text */
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.home-header p {
+/* Beschreibungstext */
+.home-container p {
     font-size: 1.2rem;
     color: #555;
-    max-width: 600px;
-    margin: 0 auto;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.8;
 }
 
-/* Content-Bereich der Home-Seite */
+/* Home Cards Section */
 .home-content {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    align-items: center;
     flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Kartenelemente für verschiedene Aktionen */
 .home-card {
-    background: gainsboro;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 260px;
-    padding: 20px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 380px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+
+.home-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #3498db;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
 }
 
 .home-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
+.home-card:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Card Title */
 .home-card h2 {
-    font-size: 1.6rem;
+    font-size: 2rem;
     color: #333;
-    margin-bottom: 8px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
+/* Card Beschreibung */
 .home-card p {
-    font-size: 0.95rem;
-    color: #777;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
 }
 
-/* Schaltflächen */
+/* Home Button */
 .home-button {
-    padding: 10px 18px;
+    padding: 12px 25px;
     background-color: #3498db;
     color: white;
-    border-radius: 8px;
+    font-size: 1.1rem;
     text-decoration: none;
-    font-size: 1rem;
-    display: inline-block;
+    border-radius: 6px;
     transition: background-color 0.3s ease, transform 0.3s ease;
-    margin-top: 8px;
+    display: inline-block;
+    margin-top: 1rem;
+    border: none;
 }
 
 .home-button:hover {
-    background-color: lightslategray;
-    color: wheat;
-    transform: translateY(-2px);
+    background-color: #2980b9;
+    transform: translateY(-4px);  /* Leichtes Heben des Buttons */
+    color: white;
 }
 
-/* Responsiveness für kleinere Bildschirme */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .home-header h1 {
-        font-size: 2rem;
-    }
-
-    .home-header p {
-        font-size: 1rem;
+    .home-container {
+        padding: 2rem;
     }
 
     .home-content {
-        flex-direction: column;
-        gap: 8px;
+        flex-direction: column;  /* Karten untereinander anordnen auf kleinen Bildschirmen */
+        align-items: center;      /* Zentriert Karten vertikal auf kleinen Geräten */
     }
 
     .home-card {
         width: 90%;
-        max-width: 380px;
+        max-width: 100%;  /* Karten nehmen auf mobilen Geräten mehr Platz ein */
     }
 
     .home-button {
-        width: 100%;
+        width: 100%;  /* Button nimmt die gesamte Breite auf mobilen Geräten */
+        padding: 14px; /* Etwas größere Polsterung für Touchscreens */
     }
 }

@@ -85,10 +85,11 @@ export default function RestaurantDetails(props: Readonly<Props>) {
     if (!currentRestaurant) return <div>Kein Restaurant gefunden</div>;
 
     return (
-        <div className="layout-container">
+        <div className="home-container">
             <div className="restaurant-gallery">
                 <h1>{currentRestaurant.name}</h1>
-                <p>{currentRestaurant.address}</p>
+                <p>                    <i className="fas fa-map-marker-alt" ></i>
+                    {currentRestaurant.address}</p>
                 <p>Küche:{currentRestaurant.cuisine}</p>
             </div>
             <div className="comment-section">

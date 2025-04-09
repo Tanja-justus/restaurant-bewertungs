@@ -10,6 +10,7 @@ import RestaurantPage from "./RestaurantPage.tsx";
 import RestaurantDetails from "./components/RestaurantDetails.tsx";
 import UpdateRestaurant from "./components/UpdateRestaurant.tsx";
 import Footer from "./components/Footer.tsx";
+import "./App.css";
 function App() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [restaurant, setRestaurant] = useState<Restaurant | undefined>(undefined); // Stelle sicher, dass es "undefined" sein kann.

@@ -43,7 +43,7 @@ function AddRestaurant(props: Readonly<Props>) {
     };
 
     return (
-        <div>
+        <div className="restaurant-edit">
             <h1>Restaurant Hinzufügen</h1>
             <form onSubmit={handleSubmit} className="add-restaurant-form">
                 <div>

@@ -1,6 +1,5 @@
 import { Restaurant } from "../types/Restaurant";
 import { useNavigate } from "react-router-dom";
-import "../css/RestaurantCard.css";
 
 type RestaurantCardProps = {
     restaurant: Restaurant;

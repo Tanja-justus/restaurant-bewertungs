@@ -1,22 +1,9 @@
-/* Container für das Layout */
-.layout-container {
-    display: flex;
-    flex-direction: row; /* Nebeneinander anzeigen */
-    gap: 30px; /* Abstand zwischen den Spalten */
-    padding: 140px;
-    max-width: 1200px;
-    margin: 100px auto;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 
-}
 
 /* Restaurant-Galerie links */
 .restaurant-gallery {
     flex: 1; /* Nimmt den restlichen Platz ein */
     font-family: 'Poppins', sans-serif; /* Modernere Schriftart */
-    background-color: #ffffff;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -46,12 +33,15 @@
 
 .restaurant-gallery p {
     font-size: 1.2rem;
-    color: #7f8c8d;
+    color: black;
     margin: 5px 0;
     text-align: left;
     line-height: 1.5;
 }
-
+.restaurant-gallery i{
+    color: #3498db;
+    margin-right: 10px;
+}
 /* Kommentarbereich rechts */
 .comment-section {
     flex: 1; /* Nimmt ebenfalls den restlichen Platz ein */

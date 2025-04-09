@@ -2,8 +2,9 @@
 .restaurant-page {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background-color: #f4f7f6;
+    background: linear-gradient(135deg, rgba(119, 136, 153, 0.8), rgba(222, 184, 135, 0.8));
     min-height: 100vh;
+
 }
 
 /* Suchbereich */
@@ -32,7 +33,7 @@
 /* Icon der Suchleiste */
 .search-icon {
     position: absolute;
-    right: 15px;
+    right: 250px;
     color: #888;
     font-size: 1.5rem;
     cursor: pointer;
@@ -52,18 +53,26 @@ p {
     gap: 20px;
     justify-content: center;
 }
-
+.restaurants-list {
+    display: flex;
+    flex-wrap: wrap; /* Erlaubt Umbruch der Karten auf kleineren Bildschirmen */
+    gap: 20px; /* Abstand zwischen den Karten */
+    justify-content: center; /* Zentriert die Karten horizontal */
+    padding: 20px;
+}
 /* Restaurant Card */
 .restaurant-card {
-    background-color: #fff;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 350px;
+    max-width: 400px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     margin: 10px;
+
 }
 
 .restaurant-card:hover {
@@ -92,7 +101,7 @@ p {
 
 /* Buttons */
 button {
-    padding: 10px 15px;
+    padding: 5px 10px;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
