@@ -1,50 +1,69 @@
 /* Allgemeine Stile für das Formular */
-.add-restaurant-form {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+.restaurant-edit{
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    background: linear-gradient(135deg, rgba(119, 136, 153, 0.8), rgba(222, 184, 135, 0.8)); /* Verlauf von Lichtgrau zu Burlywood mit Transparenz */
+
+    min-height: 70vh;
+    padding: 3rem;
+    text-align: center;
     box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 15px; /* Abgerundete Ecken für ein elegantes Aussehen */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sanfter Schatten für Tiefe */
+    transition: all 0.3s ease; /* Sanfte Übergänge */
+}
+.add-restaurant-form {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 60px;
+    border-radius: 15px; /* Abgerundete Ecken für das Formular */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2); /* Sanfter Verlauf */
+    box-sizing: border-box;
+    transition: all 0.3s ease; /* Weicher Übergang für Hover */
 }
 
 /* Titel */
- h1 {
-    text-align: center;
-    font-size: 2rem;
-    color: lightslategray;
-    margin-bottom: 30px;
+h1 {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Formularfelder - Container für jedes Eingabefeld und Label */
 .add-restaurant-form div {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 /* Label für die Eingabefelder */
 .add-restaurant-form label {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: #333;
     font-weight: bold;
-    margin-bottom: 8px; /* Abstand zwischen Label und Input */
+    margin-bottom: 10px; /* Mehr Abstand zwischen Label und Input */
 }
 
 /* Eingabefelder (Textfeld, Dropdown) */
 input, select {
-    width: 100%;
-    padding: 12px;
+    width: 100%; /* Eingabefelder auf 100% der Breite des Containers */
+    max-width: 600px; /* Maximalbreite von 600px */
+    height: 50px; /* Erhöhte Höhe */
+    padding: 15px;
     margin: 0;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 10px; /* Abgerundete Ecken */
+    font-size: 1.1rem;
     color: #333;
     background-color: #f9f9f9;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Sanfter Schatten */
 }
 
 /* Fokus-Effekte für Eingabefelder */
@@ -52,39 +71,27 @@ input:focus, select:focus {
     border-color: #3498db;
     outline: none;
     background-color: #fff;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.4); /* Schatteneffekt bei Fokus */
 }
 
 /* Button */
-button {
+.add-restaurant-form button {
     width: 50%;
     padding: 12px;
     background-color: #3498db;
     color: white;
     font-size: 1.2rem;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px; /* Abgerundete Ecken */
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    justify-content: center;
 }
 
+/* Hover-Effekte für Button */
 button:hover {
     background-color: #2980b9;
-}
-
-/* Erfolgsmeldung */
-.success-message {
-    color: #28a745;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Fehlermeldung */
-.error-message {
-    color: #e74c3c;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
+    transform: scale(1.05); /* Button vergrößert sich leicht */
 }
 
 /* Für kleinere Geräte (Mobilgeräte) */
@@ -95,7 +102,7 @@ button:hover {
     }
 
     .add-restaurant-form h1 {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
 
     button {

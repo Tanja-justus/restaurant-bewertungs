@@ -1,75 +1,92 @@
-/* Container des Headers */
+/* ---------- Header ---------- */
 .header {
-    background-color: burlywood;
-    color: white;
     display: flex;
-    justify-content: flex-start; /* Elemente links ausrichten */
-    align-items: center; /* Vertikale Zentrierung */
-    width: 100%;
-    position: fixed;  /* Fixiert den Header oben auf der Seite */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: linear-gradient(90deg, #2c3e50, #34495e);  /* Gradient für den Hintergrund */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Weicherer, stärkerer Schatten */
+    position: sticky;
     top: 0;
-    left: 0;/* Hintergrundfarbe für den Header */ /* Der Header nimmt die gesamte Breite ein */
     z-index: 1000;
+    border-bottom: 2px solid #3498db; /* Elegante Linie am unteren Rand */
+    transition: background 0.3s ease-in-out; /* Sanfter Übergang für die Hintergrundfarbe */
 }
 
-/* Logo links und größer */
+/* Logo Container */
 .logo-container {
-    margin-right: 10px; /* Abstand zwischen Logo und Titel */
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
+/* Logo Styles */
 .logo {
-    width: 150px; /* Größe des Logos anpassen (kann auf Bedarf geändert werden) */
-    height: auto; /* Stellt sicher, dass das Logo proportional bleibt */
+    height: 80px;
+    transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
 }
 
-/* Navigationsleiste */
+/* Hover-Effekt für das Logo */
+.logo:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+    box-shadow: 0 0 15px rgba(52, 152, 219, 0.6); /* Weicherer Schatten beim Hover */
+}
+
+/* Navigation Styles */
 .nav-links {
     display: flex;
-    justify-content: center;
-    margin-top: 100px;
+    gap: 1.5rem;
+    align-items: center;
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Sanfter Übergang */
 }
 
-/* Links in der Navigation */
+/* Links-Styles */
 .nav-link {
+    color: #fff;  /* Weißer Text für Links */
     text-decoration: none;
-    color: white;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    margin: 0 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: 500;
+    font-size: 1rem;  /* Etwas größere Schrift */
+    position: relative;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/* Hover-Effekt für Links */
 .nav-link:hover {
-    background-color: lightslategray;
-    color: #242424;
+    color: #3498db;  /* Blauer Hover-Effekt */
+    transform: scale(1.1); /* Leichtes Vergrößern des Links */
+    letter-spacing: 1px; /* Erhöht den Abstand zwischen den Buchstaben */
 }
 
-/* Markierung des aktiven Links */
-
-a.nav-link.active {
-    background-color: #333; /* Dunkler Hintergrund für aktive Links */
-    color: lightgoldenrodyellow; /* Goldene Schriftfarbe */
+.nav-link.active {
+    color: #3498db;
+    font-weight: 600;
+    text-decoration: underline;  /* Unterstreicht den aktiven Link */
 }
-/* Optional: Für kleinere Bildschirme - responsiv */
+
+/* Responsive Design für mobile Geräte */
 @media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        text-align: center;
-    }
-
     .nav-links {
         flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
+        gap: 1.5rem;
+        align-items: flex-start;
     }
 
     .nav-link {
-        margin: 5px 0;
+        font-size: 1.2rem;  /* Größere Schrift auf mobilen Geräten */
     }
 
-    .logo {
-        width: 100px; /* Logo auf kleineren Bildschirmen verkleinern */
+    .logo-container {
+        flex-direction: column;
+        align-items: flex-start;
     }
+}
+
+/* Hover-Animation für den Header beim Scrollen */
+.header:hover {
+    background: linear-gradient(90deg, #3498db, #2c3e50);  /* Farbwechsel beim Hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Deutlich stärkerer Schatten */
 }

@@ -10,7 +10,6 @@ export default function Header() {
                 </NavLink>
             </div>
             <nav className="nav-links">
-                {/* Verwendet "end", um sicherzustellen, dass der Link nur aktiv ist, wenn der Pfad genau "/restaurant" ist */}
                 <NavLink to="/" end className="nav-link">Home</NavLink>
                 <NavLink to="/restaurant" end className="nav-link">Restaurants</NavLink>
                 <NavLink to="/restaurant/add" className="nav-link">Neue Restaurant</NavLink>

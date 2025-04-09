@@ -1,0 +1,79 @@
+/* ---------- Footer ---------- */
+
+.footer {
+    background: linear-gradient(135deg, #2d3e50, #1c2833); /* Sanfter Farbverlauf für den Hintergrund */
+    color: #fff;
+    padding: 2rem 2rem; /* Weniger Abstand nach oben und unten */
+    font-size: 0.95rem;
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2); /* Weicherer Schatten für den Footer */
+    border-top: 4px solid #3498db; /* Akzentfarbe oben */
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Flexibles Grid für die Spalten */
+    gap: 2rem;
+    margin-bottom: 1rem; /* Weniger Abstand nach unten */
+    padding: 0 1rem;
+}
+
+.footer-links a,
+.footer-contact p {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    margin: 0.5rem 0;
+    transition: color 0.3s ease, padding-left 0.2s ease;
+}
+
+.footer-links a:hover,
+.footer-contact a:hover {
+    color: #3498db; /* Farbwechsel bei Hover */
+    padding-left: 10px; /* Kleine Verschiebung nach links bei Hover */
+}
+
+.footer-contact h4,
+.footer-links h4,
+.footer-social h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-social .social-icons a {
+    margin-right: 1rem;
+    color: #ccc;
+    font-size: 1.5rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-social .social-icons a:hover {
+    color: #3498db;
+    transform: scale(1.1); /* Icons werden bei Hover leicht größer */
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid #444;
+    padding-top: 0.5rem; /* Weniger Abstand nach oben */
+    color: #aaa;
+    font-size: 0.8rem; /* Kleinere Schriftgröße */
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr; /* Alle Bereiche untereinander auf mobilen Geräten */
+        text-align: center;
+    }
+
+    .footer-social .social-icons {
+        justify-content: center;
+    }
+
+    .footer-social .social-icons a {
+        font-size: 1.6rem; /* Etwas kleinere Icons für kleinere Bildschirme */
+    }
+}

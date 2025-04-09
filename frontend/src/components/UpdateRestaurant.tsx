@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react';
 import {Restaurant} from '../types/Restaurant';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
-
 type UpdateRestaurantProps = {
     restaurant: Restaurant;  // Das Restaurant ist nun immer verfügbar und nicht optional
     handleUpdatedRestaurant: (restaurant: Restaurant) => void;
@@ -46,7 +45,7 @@ export default function UpdateRestaurant({restaurant, handleUpdatedRestaurant}: 
     }
 
     return (
-        <div>
+        <div className="restaurant-edit">
             <h1>Restaurant Aktualisieren</h1>
             <form onSubmit={handleSubmit} className="add-restaurant-form">
                 <div>
