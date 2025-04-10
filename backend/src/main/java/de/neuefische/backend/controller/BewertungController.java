@@ -36,8 +36,13 @@ public class BewertungController {
             @PathVariable String restaurantId,
             @RequestBody Bewertung bewertung) {
 
-        // Set the restaurantId to the Bewertung record
-        Bewertung savedBewertung = bewertungService.addBewertung(bewertung.kommentar(), restaurantId);
+        // Validierung des Ratings
+        if (bewertung.rating() < 1 || bewertung.rating() > 5) {
+            return ResponseEntity.badRequest().body(null); // Wenn der Rating ungültig ist, geben wir eine 400 Antwort zurück.
+        }
+
+        // Setze restaurantId und füge die Bewertung hinzu
+        Bewertung savedBewertung = bewertungService.addBewertung(bewertung.kommentar(), restaurantId, bewertung.rating());
 
         return new ResponseEntity<>(savedBewertung, HttpStatus.CREATED);
     }

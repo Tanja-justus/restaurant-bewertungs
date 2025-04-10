@@ -1,7 +1,7 @@
-import {Restaurant} from "../types/Restaurant.ts";
-import {Bewertung} from "../types/Bewertung.ts";
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { Restaurant } from "../types/Restaurant.ts";
+import { Bewertung } from "../types/Bewertung.ts";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../css/RestaurantDetails.css";
 import axios from "axios";
 
@@ -18,6 +18,7 @@ export default function RestaurantDetails(props: Readonly<Props>) {
     const [error, setError] = useState<string | null>(null);
     const [comments, setComments] = useState<Bewertung[]>([]);
     const [newComment, setNewComment] = useState<string>("");
+    const [newRating, setNewRating] = useState<number>(1);
 
     useEffect(() => {
         if (id) {
@@ -55,16 +56,25 @@ export default function RestaurantDetails(props: Readonly<Props>) {
 
     // Neuen Kommentar hinzufügen
     function handleAddComment() {
-        if (newComment.trim() === "") return;
+        // Validierung
+        if (newComment.trim() === "") {
+            setError("Kommentar darf nicht leer sein.");
+            return;
+        }
 
-        axios.post(`/api/restaurants/${id}/bewertungen`, {kommentar: newComment, restaurantId: id})
+        axios.post(`/api/restaurants/${id}/bewertungen`, { kommentar: newComment, restaurantId: id, rating: newRating })
             .then((response) => {
                 setComments((prevComments) => [...prevComments, response.data]);
                 setNewComment("");
+                setNewRating(1);
+                setError("")
             })
-
-            .catch(() => {
-                setError("Fehler beim Hinzufügen des Kommentars.");
+            .catch((err) => {
+                if (err.response?.status === 400) {
+                    setError("Bitte gib eine gültige Bewertung zwischen 1 und 5 ab.");
+                } else {
+                    setError("Fehler beim Hinzufügen des Kommentars.");
+                }
             });
     }
 
@@ -72,7 +82,6 @@ export default function RestaurantDetails(props: Readonly<Props>) {
     function handleDeleteComment(bewertungId: string) {
         axios.delete(`/api/restaurants/${id}/bewertungen/${bewertungId}`)
             .then(() => {
-                // Filtert die gelöschte Bewertung aus der Liste
                 setComments((prevComments) => prevComments.filter(comment => comment.id !== bewertungId));
             })
             .catch(() => {
@@ -81,26 +90,34 @@ export default function RestaurantDetails(props: Readonly<Props>) {
     }
 
     if (loading) return <div>Lädt...</div>;
-    if (error) return <div>{error}</div>;
     if (!currentRestaurant) return <div>Kein Restaurant gefunden</div>;
 
     return (
         <div className="home-container">
             <div className="restaurant-gallery">
                 <h1>{currentRestaurant.name}</h1>
-                <p>                    <i className="fas fa-map-marker-alt" ></i>
-                    {currentRestaurant.address}</p>
-                <p>Küche:{currentRestaurant.cuisine}</p>
+                <p><i className="fas fa-map-marker-alt"></i> {currentRestaurant.address}</p>
+                <p><strong>Küche:</strong> {currentRestaurant.cuisine}</p>
             </div>
-            <div className="comment-section">
 
-                <h2>Kommentare für {currentRestaurant.name} </h2>
+            <div className="comment-section">
+                <h2>Kommentare für {currentRestaurant.name}</h2>
                 <div className="comments-list">
                     {comments.length > 0 ? (
                         comments.map((comment) => (
                             <div key={comment.id} className="comment">
                                 <p>{comment.kommentar}</p>
-                                <button onClick={() => handleDeleteComment(comment.id)}> <i className="fas fa-trash"></i></button>
+                                <div className="star-rating">
+                                    {Array.from({ length: 5 }, (_, index) => (
+                                        <i
+                                            key={index}
+                                            className={`fas fa-star ${index < comment.rating ? "filled" : ""}`}
+                                        ></i>
+                                    ))}
+                                </div>
+                                <button onClick={() => handleDeleteComment(comment.id)}>
+                                    <i className="fas fa-trash"></i>
+                                </button>
                             </div>
                         ))
                     ) : (
@@ -109,14 +126,21 @@ export default function RestaurantDetails(props: Readonly<Props>) {
                 </div>
 
                 <div className="add-comment">
+                    {error && <div className="error-message"><p>{error}</p></div>}
                     <textarea
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Schreibe einen Kommentar..."
                     />
+                    <select value={newRating} onChange={(e) => setNewRating(Number(e.target.value))}>
+                        {[1, 2, 3, 4, 5].map((n) => (
+                            <option key={n} value={n}>{n} Sterne</option>
+                        ))}
+                    </select>
                     <button onClick={handleAddComment}>Kommentar hinzufügen</button>
                 </div>
             </div>
+
         </div>
     );
 }

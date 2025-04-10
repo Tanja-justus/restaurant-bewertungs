@@ -30,8 +30,8 @@ class BewertungServiceTest {
     void getBewertungenByRestaurantId() {
         // GIVEN: Prepare test data
         String restaurantId = "1";
-        Bewertung b1 = new Bewertung("1", "test-kommentar-1!",restaurantId);
-        Bewertung b2 = new Bewertung("2", "test-kommentar-2",restaurantId);
+        Bewertung b1 = new Bewertung("1", "test-kommentar-1!",restaurantId,4);
+        Bewertung b2 = new Bewertung("2", "test-kommentar-2",restaurantId,5);
 
         // Mock the repository call to return the test data
         when(bewertungRepository.findByRestaurantId(restaurantId)).thenReturn(List.of(b1, b2));
@@ -66,18 +66,20 @@ class BewertungServiceTest {
         String id = idService.generateRandomID();
         String kommentar = "Test kommentar";
         String  restaurantId  = "1";
-        Bewertung bewertungMocked = new Bewertung("123", kommentar, restaurantId);
+        int rating=4;
+        Bewertung bewertungMocked = new Bewertung("123", kommentar, restaurantId,rating);
         when(bewertungRepository.save(bewertungMocked)).thenReturn(bewertungMocked);
 
 
         // when
-        Bewertung bewertungSaved= bewertungService.addBewertung(kommentar, restaurantId);
+        Bewertung bewertungSaved= bewertungService.addBewertung(kommentar, restaurantId,rating);
 
         // then
         verify(bewertungRepository).save(bewertungSaved);
         assertNotNull(bewertungSaved);
         assertEquals(bewertungMocked.kommentar(),  bewertungSaved.kommentar());
         assertEquals(bewertungMocked.restaurantId(), bewertungSaved.restaurantId());
+        assertEquals(bewertungMocked.rating(), bewertungSaved.rating());
         assertNotNull(bewertungSaved.id());
     }
 

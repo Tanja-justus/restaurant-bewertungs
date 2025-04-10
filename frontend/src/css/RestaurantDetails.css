@@ -135,6 +135,42 @@
     background-color: #2980b9; /* Dunklere Farbe bei Hover */
     transform: scale(1.05); /* Vergrößert den Button beim Hover */
 }
+.star-rating i {
+    color: gold;
+    margin-right: 2px;
+    font-size: 20px;
+}
+
+.star-rating i.filled {
+    color: gold;
+}
+
+.star-rating i:not(.filled) {
+    color:lightsteelblue;
+}
+/* Fehlernachricht-Container */
+/* Fehlernachricht-Container */
+.error-message {
+    background-color: #ffdddd;
+    color: #d8000c;
+    border: 1px solid red;
+    padding: 15px 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    width: 100%;
+    text-align: left;
+}
+
+
+.error-message:hover {
+    background-color: #ffd8d8;
+    transform: scale(1.02);
+}
+
 
 /* Responsiveness für kleinere Bildschirme */
 @media (max-width: 768px) {
