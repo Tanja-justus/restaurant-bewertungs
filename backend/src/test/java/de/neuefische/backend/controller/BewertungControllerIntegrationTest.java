@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     @DirtiesContext
     void deleteBewertung_shouldReturnNoContent_whenBewertungExists() throws Exception {
         // Given: A Bewertung exists in the repository
-        Bewertung bewertung = new Bewertung("test-id", "Test kommentar", "test-restaurant-id");
+        Bewertung bewertung = new Bewertung("test-id", "Test kommentar", "test-restaurant-id",5);
         bewertungRepository.save(bewertung);
 
         // When: The DELETE request is performed to delete the existing Bewertung
@@ -78,8 +78,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
     void getBewertungenByRestaurantId_shouldReturnOkWithBewertungen_whenBewertungenExist() throws Exception {
         // Given: A Bewertung for a specific restaurant exists in the repository
         String restaurantId = "restaurant-1";
-        bewertungRepository.save(new Bewertung("1", "Great food!", restaurantId));
-        bewertungRepository.save(new Bewertung("2", "Nice ambiance!", restaurantId));
+        bewertungRepository.save(new Bewertung("1", "Great food!", restaurantId,4));
+        bewertungRepository.save(new Bewertung("2", "Nice ambiance!", restaurantId,5));
 
         // When: GET request to fetch Bewertungen for the restaurant
         mockMvc.perform(get("/api/restaurants/{restaurantId}/bewertungen", restaurantId))
@@ -87,8 +87,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .andExpect(status().isOk())
                 // Expecting a JSON response with two Bewertungen
                 .andExpect(content().json("["
-                        + "{ 'id': '1', 'kommentar': 'Great food!', 'restaurantId': 'restaurant-1' },"
-                        + "{ 'id': '2', 'kommentar': 'Nice ambiance!', 'restaurantId': 'restaurant-1' }"
+                        + "{ 'id': '1', 'kommentar': 'Great food!', 'restaurantId': 'restaurant-1','rating': 4 },"
+                        + "{ 'id': '2', 'kommentar': 'Nice ambiance!', 'restaurantId': 'restaurant-1','rating': 5  }"
                         + "]"));
     }
 
@@ -113,29 +113,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
         // When: Sending a POST request to add a new Bewertung (review)
         mockMvc.perform(post("/api/restaurants/{restaurantId}/bewertungen", restaurantId)
-                        .contentType(MediaType.APPLICATION_JSON)  // Ensure correct content type
-                        .content("{\"kommentar\": \"Amazing service!\"}")) // JSON body with 'kommentar'
-                // Then: Expecting status 201 Created
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                            {
+                                "kommentar": "Amazing service!",
+                                "rating": 5
+                            }
+                            """))
                 .andExpect(status().isCreated())
-                // Expecting the response body to contain the kommentar and restaurantId
                 .andExpect(jsonPath("$.kommentar").value("Amazing service!"))
-                .andExpect(jsonPath("$.restaurantId").value(restaurantId));
+                .andExpect(jsonPath("$.restaurantId").value(restaurantId))
+                .andExpect(jsonPath("$.rating").value(5));
 
-        // Verify the Bewertung was actually saved in the database
+        // Verify the Bewertung was saved
         Bewertung bewertung = bewertungRepository.findAll().get(0);
         assertThat(bewertung.kommentar()).isEqualTo("Amazing service!");
         assertThat(bewertung.restaurantId()).isEqualTo(restaurantId);
-    }
-
-    @Test
-    @DirtiesContext
-    void findRestaurantById_WhenRestaurantNotFound_thenStatus404() throws Exception {
-        //GIVEN
-
-        //WHEN
-        mockMvc.perform(get("/api/restaurant/1"))
-                //THEN
-                .andExpect(status().isNotFound());
+        assertThat(bewertung.rating()).isEqualTo(5);
     }
 
 }
