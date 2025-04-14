@@ -18,7 +18,8 @@ export default function RestaurantDetails(props: Readonly<Props>) {
     const [error, setError] = useState<string | null>(null);
     const [comments, setComments] = useState<Bewertung[]>([]);
     const [newComment, setNewComment] = useState<string>("");
-    const [newRating, setNewRating] = useState<number>(1);
+    const [newRating, setNewRating] = useState<number | null>(null);
+    const [wantsToRate, setWantsToRate] = useState<boolean>(false);
 
     useEffect(() => {
         if (id) {
@@ -62,19 +63,16 @@ export default function RestaurantDetails(props: Readonly<Props>) {
             return;
         }
 
-        axios.post(`/api/restaurants/${id}/bewertungen`, { kommentar: newComment, restaurantId: id, rating: newRating })
+        axios.post(`/api/restaurants/${id}/bewertungen`, {
+            kommentar: newComment,
+            restaurantId: id,
+            rating: wantsToRate ? newRating : null
+        })
             .then((response) => {
                 setComments((prevComments) => [...prevComments, response.data]);
                 setNewComment("");
-                setNewRating(1);
-                setError("")
-            })
-            .catch((err) => {
-                if (err.response?.status === 400) {
-                    setError("Bitte gib eine gültige Bewertung zwischen 1 und 5 ab.");
-                } else {
-                    setError("Fehler beim Hinzufügen des Kommentars.");
-                }
+                setNewRating(null); // Reset the rating to null after submitting
+                setError("");
             });
     }
 
@@ -124,7 +122,6 @@ export default function RestaurantDetails(props: Readonly<Props>) {
                         <p>Es gibt noch keine Kommentare.</p>
                     )}
                 </div>
-
                 <div className="add-comment">
                     {error && <div className="error-message"><p>{error}</p></div>}
                     <textarea
@@ -132,15 +129,46 @@ export default function RestaurantDetails(props: Readonly<Props>) {
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Schreibe einen Kommentar..."
                     />
-                    <select value={newRating} onChange={(e) => setNewRating(Number(e.target.value))}>
-                        {[1, 2, 3, 4, 5].map((n) => (
-                            <option key={n} value={n}>{n} Sterne</option>
-                        ))}
-                    </select>
+                    <div className="rating-choice">
+                        <p>Möchtest du eine Bewertung abgeben?</p>
+                        <label>
+                            <input
+                                type="radio"
+                                name="wantsToRate"
+                                value="yes"
+                                checked={wantsToRate === true}
+                                onChange={() => {
+                                    setWantsToRate(true);
+                                    setNewRating(1); // Optional: Setzt einen Standardwert, wenn "Ja" ausgewählt wird
+                                }}
+                            />
+                            Ja
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="wantsToRate"
+                                value="no"
+                                checked={wantsToRate === false}
+                                onChange={() => {
+                                    setWantsToRate(false);
+                                    setNewRating(null); // Setzt Rating auf null, wenn "Nein" ausgewählt wird
+                                }}
+                            />
+                            Nein
+                        </label>
+                    </div>
+                    {wantsToRate && (
+                        <select value={newRating ?? ""} onChange={(e) => setNewRating(Number(e.target.value))}>
+                            {[1, 2, 3, 4, 5].map((n) => (
+                                <option key={n} value={n}>{n} Sterne</option>
+                            ))}
+                        </select>
+                    )}
+
                     <button onClick={handleAddComment}>Kommentar hinzufügen</button>
                 </div>
             </div>
-
         </div>
     );
 }

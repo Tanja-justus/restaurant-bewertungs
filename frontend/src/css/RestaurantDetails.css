@@ -171,6 +171,31 @@
     transform: scale(1.02);
 }
 
+/* Stil für den Bewertungsteil */
+.add-comment .rating-choice {
+    margin-bottom: 15px;
+}
+
+/* Stil für die Beschriftung des Bewertungsteils */
+.add-comment .rating-choice p {
+    margin-bottom: 10px; /
+    font-size: 1rem;
+    color: #333;
+}
+
+/* Stil für die Label (Radio-Button-Beschriftung) */
+.add-comment label {
+    margin-right: 20px; /* Abstand nach rechts zwischen den Labeln */
+    font-size: 1em; /* Schriftgröße der Label-Texte */
+    color: #555; /* Textfarbe */
+}
+
+/* Stil für die Radio-Buttons */
+label input[type="radio"] {
+    margin-right: 8px;
+    cursor: pointer;
+    width: 30px;
+}
 
 /* Responsiveness für kleinere Bildschirme */
 @media (max-width: 768px) {

@@ -33,13 +33,9 @@ public class BewertungService {
     }
 
     //  Neue Bewertung speichern
-    public Bewertung addBewertung(  String kommentar, String restaurantId,int rating) {
+    public Bewertung addBewertung(  String kommentar, String restaurantId,Integer rating) {
         IdService idService = new IdService();
         String id = idService.generateRandomID();
-        // Validierung des Ratings (falls nicht schon im Controller erfolgt)
-        if (rating < 1 || rating > 5) {
-            throw new IllegalArgumentException("Bewertung muss zwischen 1 und 5 liegen.");
-        }
         Bewertung bewertung = new Bewertung(id, kommentar, restaurantId,rating);
       bewertungRepository.save(bewertung);
 
