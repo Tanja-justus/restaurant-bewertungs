@@ -2,6 +2,7 @@ import "../css/Header.css";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {
+
     return (
         <div className="header">
             <div className="logo-container">

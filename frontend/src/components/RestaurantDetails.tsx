@@ -28,11 +28,25 @@ export default function RestaurantDetails(props: Readonly<Props>) {
         }
     }, [id]);
 
-    // Restaurant-Daten abrufen
+    // Hilfsfunktion: Durchschnitt berechnen
+    function berechneDurchschnitt(bewertungen: Bewertung[]): number {
+        const ratings = bewertungen.filter(b => b.rating != null);
+        if (ratings.length === 0) return 0;
+
+        const summe = ratings.reduce(
+            (zwischenwert, bewertung) => zwischenwert + bewertung.rating,
+            0
+        );
+
+        return summe / ratings.length;
+    }
+
+
+    const durchschnitt = berechneDurchschnitt(comments);
+
     function fetchRestaurant() {
         setLoading(true);
         setError(null);
-
         axios.get(`/api/restaurant/${id}`)
             .then((response) => {
                 setCurrentRestaurant(response.data);
@@ -44,7 +58,6 @@ export default function RestaurantDetails(props: Readonly<Props>) {
             .finally(() => setLoading(false));
     }
 
-    // Kommentare abrufen
     function fetchComments() {
         axios.get(`/api/restaurants/${id}/bewertungen`)
             .then((response) => {
@@ -55,9 +68,7 @@ export default function RestaurantDetails(props: Readonly<Props>) {
             });
     }
 
-    // Neuen Kommentar hinzufügen
     function handleAddComment() {
-        // Validierung
         if (newComment.trim() === "") {
             setError("Kommentar darf nicht leer sein.");
             return;
@@ -71,12 +82,11 @@ export default function RestaurantDetails(props: Readonly<Props>) {
             .then((response) => {
                 setComments((prevComments) => [...prevComments, response.data]);
                 setNewComment("");
-                setNewRating(null); // Reset the rating to null after submitting
+                setNewRating(null);
                 setError("");
             });
     }
 
-    // Bewertung löschen
     function handleDeleteComment(bewertungId: string) {
         axios.delete(`/api/restaurants/${id}/bewertungen/${bewertungId}`)
             .then(() => {
@@ -96,6 +106,29 @@ export default function RestaurantDetails(props: Readonly<Props>) {
                 <h1>{currentRestaurant.name}</h1>
                 <p><i className="fas fa-map-marker-alt"></i> {currentRestaurant.address}</p>
                 <p><strong>Küche:</strong> {currentRestaurant.cuisine}</p>
+                <p>
+                    <strong>Durchschnittliche Bewertung:</strong>{" "}
+                    {durchschnitt > 0 ? (
+                        <span className="average-rating">
+            <span className="stars">
+                {Array.from({ length: 5 }, (_, index) => {
+                    const starValue = index + 1;
+                    if (durchschnitt >= starValue) {
+                        return <i key={index} className="fas fa-star"></i>;
+                    } else if (durchschnitt >= starValue - 0.5) {
+                        return <i key={index} className="fas fa-star-half-alt"></i>;
+                    } else {
+                        return <i key={index} className="far fa-star"></i>;
+                    }
+                })}
+            </span>
+            <span>({durchschnitt.toFixed(1)} / 5)</span>
+        </span>
+                    ) : (
+                        "Noch keine Bewertung"
+                    )}
+                </p>
+
             </div>
 
             <div className="comment-section">
@@ -139,7 +172,7 @@ export default function RestaurantDetails(props: Readonly<Props>) {
                                 checked={wantsToRate === true}
                                 onChange={() => {
                                     setWantsToRate(true);
-                                    setNewRating(1); // Optional: Setzt einen Standardwert, wenn "Ja" ausgewählt wird
+                                    setNewRating(1);
                                 }}
                             />
                             Ja
@@ -152,7 +185,7 @@ export default function RestaurantDetails(props: Readonly<Props>) {
                                 checked={wantsToRate === false}
                                 onChange={() => {
                                     setWantsToRate(false);
-                                    setNewRating(null); // Setzt Rating auf null, wenn "Nein" ausgewählt wird
+                                    setNewRating(null);
                                 }}
                             />
                             Nein

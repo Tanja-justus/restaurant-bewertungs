@@ -7,7 +7,7 @@
 
                 <div className="footer-links">
                     <h4>Links</h4>
-                    <a href="/Home">Home</a>
+                    <a href="/">Home</a>
                     <a href="/restaurant">Restaurants ansehen</a>
                     <a href="/restaurant/add">Restaurant hinzufügen</a>
                 </div>

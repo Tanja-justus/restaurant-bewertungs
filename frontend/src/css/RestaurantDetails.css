@@ -135,6 +135,25 @@
     background-color: #2980b9; /* Dunklere Farbe bei Hover */
     transform: scale(1.05); /* Vergrößert den Button beim Hover */
 }
+.average-rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    color: #333;
+}
+
+.average-rating .stars {
+    display: flex;
+    gap: 2px;
+}
+
+.average-rating .stars i {
+    color: #f5b301; /* Sternfarbe */
+    font-size: 1.2rem;
+}
+
 .star-rating i {
     color: gold;
     margin-right: 2px;
