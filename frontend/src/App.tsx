@@ -13,7 +13,7 @@ import Footer from "./components/Footer.tsx";
 import "./App.css";
 function App() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-    const [restaurant, setRestaurant] = useState<Restaurant | undefined>(undefined); // Stelle sicher, dass es "undefined" sein kann.
+    const [restaurant, setRestaurant] = useState<Restaurant | undefined>(undefined);
     const navigate = useNavigate();
 
     useEffect(() => {

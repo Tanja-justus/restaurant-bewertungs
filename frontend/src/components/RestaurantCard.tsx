@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 type RestaurantCardProps = {
     restaurant: Restaurant;
     onDelete: (id: string) => void;
-    handleRestaurant: (restaurant: Restaurant) => void; // Stelle sicher, dass diese Funktion als Prop übergeben wird
+    handleRestaurant: (restaurant: Restaurant) => void;
 };
 
 export default function RestaurantCard(props: Readonly<RestaurantCardProps>) {
@@ -29,7 +29,7 @@ export default function RestaurantCard(props: Readonly<RestaurantCardProps>) {
         console.log("handle Update; id:", restaurant.id);
         if (typeof handleRestaurant === "function") {
             handleRestaurant(restaurant);
-            navigate(`/restaurant/${restaurant.id}/update`); // Pfad korrigiert
+            navigate(`/restaurant/${restaurant.id}/update`);
         } else {
             console.error("handleRestaurant ist keine Funktion.");
         }
