@@ -1,8 +1,10 @@
 import {Link} from "react-router-dom";
 import "../css/Home.css";
+import Header from "./Header.tsx";
 
 export default function Home() {
-    return (
+    return ( <><Header restaurantId={null} />
+
         <div className="home-container">
             <h1>Willkommen bei der Restaurant-Bewertung</h1>
             <p>Hier können Sie Restaurants hinzufügen, bewerten und entdecken!</p>
@@ -25,5 +27,6 @@ export default function Home() {
                 </div>
             </section>
         </div>
+        </>
     );
 }

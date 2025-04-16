@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Restaurant } from "../types/Restaurant";
 import "../css/AddRestaurant.css";
 import {useNavigate} from "react-router-dom";
+import Header from "./Header.tsx";
 type Props = {
     saveRestaurant(restaurant: Restaurant): void;
 };
@@ -43,6 +44,9 @@ function AddRestaurant(props: Readonly<Props>) {
     };
 
     return (
+        <>
+            <Header restaurantId={null} />
+
         <div className="restaurant-edit">
             <h1>Restaurant Hinzufügen</h1>
             <form onSubmit={handleSubmit} className="add-restaurant-form">
@@ -90,6 +94,7 @@ function AddRestaurant(props: Readonly<Props>) {
                 {message && <p>{message}</p>}
             </form>
         </div>
+        </>
     );
 }
 

@@ -1,9 +1,7 @@
-// App.tsx
 import { useEffect, useState } from 'react';
 import { Restaurant } from "./types/Restaurant.ts";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import Header from "./components/Header.tsx";
 import AddRestaurant from "./components/AddRestaurant.tsx";
 import Home from "./components/Home.tsx";
 import RestaurantPage from "./RestaurantPage.tsx";
@@ -11,9 +9,10 @@ import RestaurantDetails from "./components/RestaurantDetails.tsx";
 import UpdateRestaurant from "./components/UpdateRestaurant.tsx";
 import Footer from "./components/Footer.tsx";
 import "./App.css";
+
 function App() {
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-    const [restaurant, setRestaurant] = useState<Restaurant | undefined>(undefined);
+    const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -76,22 +75,30 @@ function App() {
         setRestaurant(restaurant);
     }
 
+
     return (
         <>
-            <Header/>
             <Routes>
-                <Route path="/" element={<Home/>}/>
-                <Route path="/restaurant"
-                       element={<RestaurantPage restaurants={restaurants} onDelete={deleteRestaurant}   handleRestaurant={handleRestaurant}/>}/>
+                <Route path="/" element={<Home />} />
+                <Route
+                    path="/restaurant"
+                    element={<RestaurantPage restaurants={restaurants} onDelete={deleteRestaurant} handleRestaurant={handleRestaurant} />}
+                />
                 <Route
                     path="/restaurant/add"
-                    element={<AddRestaurant saveRestaurant={saveRestaurant}/>}
+                    element={<AddRestaurant saveRestaurant={saveRestaurant} />}
                 />
-                <Route path="/restaurant/:id" element={<RestaurantDetails handleRestaurant={handleRestaurant} restaurant={restaurant}/>}/>
-                <Route path="/restaurant/:id/update"
-                       element={<UpdateRestaurant restaurant={restaurant} handleUpdatedRestaurant={handleUpdatedRestaurant} />}/>
+                {/* Details-Route, wo Restaurant geladen wird */}
+                <Route
+                    path="/restaurant/:id/bewertungen"
+                    element={<RestaurantDetails handleRestaurant={handleRestaurant} restaurant={restaurant} />}
+                />
+                <Route
+                    path="/restaurant/:id/update"
+                    element={<UpdateRestaurant restaurant={restaurant} handleUpdatedRestaurant={handleUpdatedRestaurant} />}
+                />
             </Routes>
-            <Footer/>
+            <Footer />
         </>
     );
 }

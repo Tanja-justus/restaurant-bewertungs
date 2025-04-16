@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../css/RestaurantDetails.css";
 import axios from "axios";
+import Header from "./Header.tsx";
 
 type Props = {
     handleRestaurant: (restaurant: Restaurant) => void;
@@ -100,7 +101,8 @@ export default function RestaurantDetails(props: Readonly<Props>) {
     if (loading) return <div>Lädt...</div>;
     if (!currentRestaurant) return <div>Kein Restaurant gefunden</div>;
 
-    return (
+    return ( <>
+        <Header restaurantId={id || null} />
         <div className="home-container">
             <div className="restaurant-gallery">
                 <h1>{currentRestaurant.name}</h1>
@@ -203,5 +205,6 @@ export default function RestaurantDetails(props: Readonly<Props>) {
                 </div>
             </div>
         </div>
+        </>
     );
 }
