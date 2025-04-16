@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {Restaurant} from '../types/Restaurant';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
+import Header from "./Header.tsx";
 type UpdateRestaurantProps = {
     restaurant: Restaurant;  // Das Restaurant ist nun immer verfügbar und nicht optional
     handleUpdatedRestaurant: (restaurant: Restaurant) => void;
@@ -33,7 +34,6 @@ export default function UpdateRestaurant({restaurant, handleUpdatedRestaurant}: 
             .then(() => {
                 handleUpdatedRestaurant(updatedRestaurant);  // Callback zum Aktualisieren des übergeordneten Zustands
                 navigate(`/restaurant`);// Navigiere zur  Restaurants
-                window.location.reload()
             })
             .catch((error) => {
                 console.error('Fehler beim Aktualisieren des Restaurants', error);
@@ -44,8 +44,10 @@ export default function UpdateRestaurant({restaurant, handleUpdatedRestaurant}: 
         return <div>Lädt...</div>;
     }
 
-    return (
-        <div className="restaurant-edit">
+    return (<>
+            <Header restaurantId={null} />
+
+    <div className="restaurant-edit">
             <h1>Restaurant Aktualisieren</h1>
             <form onSubmit={handleSubmit} className="add-restaurant-form">
                 <div>
@@ -93,5 +95,6 @@ export default function UpdateRestaurant({restaurant, handleUpdatedRestaurant}: 
                 <button type="submit">Speichern</button>
             </form>
         </div>
+        </>
     );
 }

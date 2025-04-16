@@ -22,10 +22,6 @@ public class BewertungController {
     @GetMapping("/restaurants/{restaurantId}/bewertungen")
     public ResponseEntity<List<Bewertung>> getBewertungenByRestaurantId(@PathVariable String restaurantId) {
         List<Bewertung> bewertungen = bewertungService.getBewertungenByRestaurantId(restaurantId);
-        if (bewertungen.isEmpty()) {
-
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);// 204 status wenn keine Restaurants gefunden
-        }
         return new ResponseEntity<>(bewertungen, HttpStatus.OK);
     }
 

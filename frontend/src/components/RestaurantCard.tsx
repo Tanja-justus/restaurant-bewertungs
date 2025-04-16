@@ -13,7 +13,8 @@ export default function RestaurantCard(props: Readonly<RestaurantCardProps>) {
 
     // Navigiert zur Detailseite
     const handleClick = () => {
-        navigate(`/restaurant/${restaurant.id}`);
+        handleRestaurant(restaurant); // Damit restaurantId im Header gesetzt wird
+        navigate(`/restaurant/${restaurant.id}/bewertungen`);
     };
 
     // Löschen mit Bestätigung

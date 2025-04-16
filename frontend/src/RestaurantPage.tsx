@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Restaurant } from "./types/Restaurant";
 import RestaurantGallery from "./components/RestaurantGallery";
 import "./css/RestaurantPage.css";
+import Header from "./components/Header.tsx";
 type Props = {
     restaurants: Restaurant[];
     onDelete: (id: string) => void;
@@ -19,6 +20,8 @@ export default function RestaurantPage(props: Props) {
     );
 
     return (
+        <>
+            <Header restaurantId={null} />
         <div className="restaurant-page">
             <div className="search-container">
                 <input
@@ -37,5 +40,6 @@ export default function RestaurantPage(props: Props) {
                 : <p>Keine Restaurants gefunden</p>
             }
         </div>
+            </>
     );
 }
