@@ -34,6 +34,7 @@ export default function UpdateRestaurant({restaurant, handleUpdatedRestaurant}: 
             .then(() => {
                 handleUpdatedRestaurant(updatedRestaurant);  // Callback zum Aktualisieren des übergeordneten Zustands
                 navigate(`/restaurant`);// Navigiere zur  Restaurants
+                window.location.reload();
             })
             .catch((error) => {
                 console.error('Fehler beim Aktualisieren des Restaurants', error);
